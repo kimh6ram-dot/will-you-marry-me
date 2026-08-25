@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>최애 청첩장</title>
+<meta name="description" content="최애와의 모바일 청첩장을 만들어보세요. 상대방의 동의 여부는 확인하지 않습니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="최애 청첩장">
+<meta property="og:description" content="최애와의 모바일 청첩장을 만들어보세요. 상대방의 동의 여부는 확인하지 않습니다.">
+<meta name="theme-color" content="#F7F6F3">
+
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="create">
+
+<main class="shell">
+
+  <!-- ===================================================================
+       STEP 01 — 주인공 정보
+       =================================================================== -->
+  <section class="step is-active" id="step-01" aria-label="주인공 정보">
+
+    <header class="head">
+      <p class="head__step">FAVORITE WEDDING INVITATION</p>
+      <h1 class="head__title head__title--hero">최애와<br>결혼합니다</h1>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="head__lead">
+        최애와의 모바일 청첩장을 만들어보세요.<br>
+        상대방의 동의 여부는 확인하지 않습니다.
+      </p>
+    </header>
+
+    <form id="form-01" novalidate>
+      <fieldset class="pick pick--role">
+        <legend class="pick__legend">나는</legend>
+        <div class="pick__grid pick__grid--2">
+          <label class="opt">
+            <input type="radio" name="role" value="bride" checked>
+            <span class="opt__box">신부</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="role" value="groom">
+            <span class="opt__box">신랑</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="input-groom">최애</label>
+        <input class="field__input" id="input-groom" type="text" inputmode="text"
+               placeholder="최애 이름" maxlength="16" autocomplete="off" spellcheck="false">
+        <p class="field__hint">캐릭터 · 아이돌 · 배우 등</p>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="input-bride">나</label>
+        <input class="field__input" id="input-bride" type="text" inputmode="text"
+               placeholder="내 이름" maxlength="16" autocomplete="off" spellcheck="false">
+        <p class="field__hint">본명 또는 별명</p>
+      </div>
+
+      <p class="notice" id="notice-01" role="status"></p>
+
+      <div class="actions">
+        <button class="btn btn--primary" type="submit">청첩장 만들기</button>
+      </div>
+    </form>
+
+    <!-- 분위기를 설명하는 용도. 사용자가 고르는 요소가 아니다. -->
+    <section class="gallery" aria-label="사례 사진">
+      <h2 class="gallery__title">먼저 결혼한 선배들</h2>
+      <p class="gallery__lead">이런 결혼도 이미 가능합니다.</p>
+      <div class="gallery__scroll" id="gallery-01"></div>
+    </section>
+
+  </section>
+
+  <!-- ===================================================================
+       STEP 02 — 예식 정보
+       =================================================================== -->
+  <section class="step" id="step-02" aria-label="예식 정보" hidden>
+
+    <header class="head">
+      <p class="head__step">STEP 02 / 04</p>
+      <h2 class="head__title">예식 정보를<br>정해볼까요?</h2>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="head__lead">최애와의 결혼식 날짜와 장소를 골라주세요.</p>
+    </header>
+
+    <form id="form-02" novalidate>
+      <fieldset class="pick">
+        <legend class="pick__legend">예식 일시</legend>
+        <div class="pick__grid">
+          <label class="opt">
+            <input type="radio" name="when" value="일단 이번 주말" checked>
+            <span class="opt__box">일단 이번 주말</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="when" value="가장 가까운 빨간날">
+            <span class="opt__box">가장 가까운 빨간날</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="when" value="협의중">
+            <span class="opt__box">협의중</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset class="pick">
+        <legend class="pick__legend">예식 장소</legend>
+        <div class="pick__grid">
+          <label class="opt">
+            <input type="radio" name="where" value="소박하게 우리 집" checked>
+            <span class="opt__box">소박하게 우리 집</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="where" value="최애 마음속">
+            <span class="opt__box">최애 마음속</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="where" value="애니에 나오는 장소">
+            <span class="opt__box">애니에 나오는 장소</span>
+          </label>
+
+          <!-- '애니에 나오는 장소' 선택 시에만 펼쳐진다.
+               숨길 때 값을 지우지 않아서 다시 고르면 입력값이 남아 있다. -->
+          <div class="custom" id="place-custom" hidden>
+            <input class="field__input" id="input-place" type="text" inputmode="text"
+                   placeholder="애니 속 장소를 입력해주세요" maxlength="30"
+                   autocomplete="off" spellcheck="false">
+            <p class="custom__error" id="error-place" hidden>장소를 입력해주세요.</p>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="actions actions--split">
+        <button class="btn btn--ghost" type="button" data-goto="step-01">이전</button>
+        <button class="btn btn--primary" type="submit">다음</button>
+      </div>
+    </form>
+
+  </section>
+
+  <!-- ===================================================================
+       STEP 03 — 청첩장 문구
+       =================================================================== -->
+  <section class="step" id="step-03" aria-label="청첩장 문구" hidden>
+
+    <header class="head">
+      <p class="head__step">STEP 03 / 04</p>
+      <h2 class="head__title">하객들에게 전할<br>한마디를 골라주세요</h2>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="head__lead">청첩장에 들어갈 문구입니다.</p>
+    </header>
+
+    <form id="form-03" novalidate>
+      <fieldset class="pick">
+        <legend class="pick__legend">청첩장 문구</legend>
+        <div class="pick__grid">
+          <label class="opt">
+            <input type="radio" name="message" value="오랜 덕질 끝에 결실을 맺게 되었습니다." checked>
+            <span class="opt__box">오랜 덕질 끝에 결실을 맺게 되었습니다.</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="message" value="드디어 최애와 한 식구가 됩니다.">
+            <span class="opt__box">드디어 최애와 한 식구가 됩니다.</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="message" value="축복보다 공감을 부탁드립니다.">
+            <span class="opt__box">축복보다 공감을 부탁드립니다.</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="message" value="상대방은 아직 모릅니다.">
+            <span class="opt__box">상대방은 아직 모릅니다.</span>
+          </label>
+          <label class="opt">
+            <input type="radio" name="message" value="여러분의 많은 이해 부탁드립니다.">
+            <span class="opt__box">여러분의 많은 이해 부탁드립니다.</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <p class="notice" id="notice-03" role="status"></p>
+
+      <div class="actions actions--split">
+        <button class="btn btn--ghost" type="button" data-goto="step-02">이전</button>
+        <button class="btn btn--primary" type="submit" id="btn-make">청첩장 완성하기</button>
+      </div>
+    </form>
+
+  </section>
+
+  <!-- ===================================================================
+       STEP 04 — 완성된 모바일 청첩장
+       화면 전체가 하나의 청첩장. 카드 마크업은 app.js 에서 온다.
+       =================================================================== -->
+  <section class="step" id="step-04" aria-label="완성된 청첩장" hidden>
+
+    <div id="invite-mount"></div>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="button" id="btn-share">청첩장 공유하기</button>
+      <button class="btn btn--ghost" type="button" id="btn-save">이미지 저장</button>
+      <button class="btn btn--ghost" type="button" data-goto="step-01">처음부터 다시 만들기</button>
+    </div>
+
+    <p class="notice" id="notice-04" role="status"></p>
+
+    <!-- 링크 영역은 기본으로 접어둔다. 펼쳐두면 결과 화면이 너무 길어진다. -->
+    <details class="linkmgr" id="share-block" hidden>
+      <summary class="linkmgr__sum">공유 링크 관리</summary>
+
+      <div class="linkmgr__body">
+        <p class="share__label">하객용 공유 링크</p>
+        <p class="share__desc">링크를 받은 사람이 청첩장을 보고 반응을 남깁니다.</p>
+        <p class="share__url" id="url-invite"></p>
+        <button class="btn btn--ghost" type="button" data-copy="url-invite">복사</button>
+
+        <p class="share__label linkmgr__gap">내 청첩장 관리 링크</p>
+        <p class="share__desc">
+          하객 반응이 몇 개 모였는지 확인하는 주소입니다.
+          <strong>다시 발급되지 않으니 따로 저장해 두세요.</strong>
+        </p>
+        <p class="share__url" id="url-result"></p>
+        <button class="btn btn--ghost" type="button" data-copy="url-result">복사</button>
+      </div>
+    </details>
+
+    <section class="gallery" aria-label="사례 사진">
+      <h2 class="gallery__title">이미 앞서간 사람들</h2>
+      <p class="gallery__lead">선배들의 결혼식입니다.</p>
+      <div class="gallery__scroll" id="gallery-04"></div>
+    </section>
+
+  </section>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script src="assets/hero-photos.js" defer></script>
+<script src="config.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>

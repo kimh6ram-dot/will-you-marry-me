@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>하객 반응</title>
+<meta name="description" content="청첩장에 모인 하객 반응.">
+<meta name="theme-color" content="#F7F6F3">
+<meta name="robots" content="noindex">
+
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="result">
+
+<main class="shell">
+
+  <p class="state" id="result-state" role="status">집계를 불러오는 중입니다.</p>
+
+  <div id="result-body" hidden>
+
+    <header class="head">
+      <p class="head__step">GUEST RESPONSE</p>
+      <h1 class="head__title">하객들이<br>이렇게 반응했어요</h1>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="head__lead">청첩장에 남겨진 반응을 모았습니다.</p>
+    </header>
+
+    <div class="card">
+      <div class="who">
+        <p class="who__names" id="result-names"></p>
+        <p class="who__line"><b>일시</b><span id="result-when"></span></p>
+        <p class="who__line"><b>장소</b><span id="result-place"></span></p>
+      </div>
+
+      <div class="tally">
+        <div class="tally__row">
+          <span class="tally__label">축하합니다</span>
+          <span class="tally__num" data-tally="cheer">0</span>
+        </div>
+        <div class="tally__row">
+          <span class="tally__label">정신 차리세요</span>
+          <span class="tally__num" data-tally="sense">0</span>
+        </div>
+        <div class="tally__row">
+          <span class="tally__label">정신머리 기부</span>
+          <span class="tally__num" data-tally="donate">0</span>
+        </div>
+        <div class="tally__row tally__row--total">
+          <span class="tally__label">합계</span>
+          <span class="tally__num" data-tally="total">0</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="notice" id="notice-result" role="status"></p>
+
+    <div class="actions">
+      <button class="btn btn--primary" type="button" id="btn-refresh">새로고침</button>
+      <a class="btn btn--ghost" id="link-invite" href="#">하객이 보는 청첩장 열기</a>
+    </div>
+
+    <p class="hint">이 주소를 아는 사람만 반응을 볼 수 있습니다.</p>
+
+  </div>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script src="config.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>

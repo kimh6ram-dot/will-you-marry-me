@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>청첩장</title>
+<meta name="description" content="결혼합니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="청첩장">
+<meta property="og:description" content="결혼합니다.">
+<meta name="theme-color" content="#F7F6F3">
+<meta name="robots" content="noindex">
+
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="invite">
+
+<main class="shell">
+
+  <p class="state" id="invite-state" role="status">청첩장을 불러오는 중입니다.</p>
+
+  <div id="invite-body" hidden>
+
+    <div id="invite-mount"></div>
+
+    <div class="actions">
+      <button class="btn btn--ghost" type="button" id="btn-save">이미지 저장</button>
+      <a class="btn btn--primary" href="index.html">나도 청첩장 만들기</a>
+    </div>
+
+    <p class="notice" id="notice-save" role="status"></p>
+
+    <section class="gallery" aria-label="사례 사진">
+      <h2 class="gallery__title">이미 앞서간 사람들</h2>
+      <p class="gallery__lead">선배들의 결혼식입니다.</p>
+      <div class="gallery__scroll" id="gallery-invite"></div>
+    </section>
+
+  </div>
+
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script src="assets/hero-photos.js" defer></script>
+<script src="config.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
