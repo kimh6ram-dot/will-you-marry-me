@@ -75,7 +75,7 @@ body{
 .divider{
   display:block;
   width:124px; height:14px;
-  margin:13px 0 0;
+  margin:10px 0 0;
   background:var(--svg-divider) no-repeat left center/contain;
 }
 
@@ -83,7 +83,7 @@ body{
   position:relative; z-index:1;
   width:100%; max-width:var(--w);
   margin:0 auto;
-  padding:28px 20px calc(40px + env(safe-area-inset-bottom));
+  padding:20px 20px calc(40px + env(safe-area-inset-bottom));
 }
 
 /* --- 단계 전환 ---------------------------------------------------- */
@@ -93,12 +93,12 @@ body{
 /* ===================================================================
    화면 머리 — 4단계 공통
    =================================================================== */
-.head{margin-bottom:30px}
+.head{margin-bottom:18px}
 
 .head__step{
   font-size:11px; font-weight:600; letter-spacing:.14em;
   color:var(--sub);
-  margin-bottom:14px;
+  margin-bottom:10px;
 }
 
 .head__title{
@@ -108,30 +108,30 @@ body{
 }
 /* 첫 화면만 한 단계 크게 */
 .head__title--hero{
-  font-size:clamp(32px, 9vw, 38px);
-  line-height:1.28; font-weight:800;
+  font-size:clamp(29px, 8.2vw, 34px);
+  line-height:1.26; font-weight:800;
 }
 
 .head__lead{
-  font-size:14px; font-weight:400; line-height:1.7;
+  font-size:14px; font-weight:400; line-height:1.65;
   color:var(--sub);
-  margin-top:12px;
+  margin-top:10px;
 }
 
 /* ===================================================================
    입력
    =================================================================== */
-.field{margin-bottom:20px}
+.field{margin-bottom:12px}
 
 .field__label{
   display:block;
   font-size:13px; font-weight:600; letter-spacing:-.01em;
   color:var(--ink);
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 .field__input{
-  display:block; width:100%; height:54px;
+  display:block; width:100%; height:52px;
   border:1px solid var(--line); border-radius:8px;
   background:var(--card);
   padding:0 16px;
@@ -144,7 +144,7 @@ body{
 
 .field__hint{
   font-size:12px; font-weight:400; color:var(--sub);
-  margin-top:7px;
+  margin-top:5px;
 }
 
 /* ===================================================================
@@ -154,15 +154,15 @@ body{
 
 .pick__legend{
   font-size:13px; font-weight:600; color:var(--ink);
-  margin-bottom:10px;
+  margin-bottom:8px;
 }
 
 .pick__grid{display:grid; gap:8px}
 .pick__grid--2{grid-template-columns:1fr 1fr}
-.pick--role{margin-bottom:22px}
+.pick--role{margin-bottom:14px}
 
 /* 2열 짧은 항목은 가운데 정렬이 보기 좋다 */
-.pick__grid--2 .opt__box{justify-content:center; padding-left:16px; padding-right:16px}
+.pick__grid--2 .opt__box{justify-content:center; min-height:52px; padding-left:16px; padding-right:16px}
 .pick__grid--2 .opt__box::after{right:12px}
 
 .opt{display:block; cursor:pointer}
@@ -233,7 +233,7 @@ body{
 .btn:focus-visible{outline:2px solid var(--btn); outline-offset:2px}
 .btn:disabled{opacity:.5; cursor:default}
 
-.actions{margin-top:28px}
+.actions{margin-top:16px}
 .actions .btn + .btn{margin-top:8px}
 .actions--split{display:grid; grid-template-columns:1fr 2fr; gap:8px}
 .actions--split .btn + .btn{margin-top:0}
@@ -541,9 +541,9 @@ body{
    부속 요소
    =================================================================== */
 .notice{
-  min-height:18px;
+  min-height:16px;
   font-size:12px; line-height:1.6; color:var(--sub);
-  text-align:center; margin:12px 0 0;
+  text-align:center; margin:8px 0 0;
 }
 
 .state{
