@@ -15,21 +15,65 @@
 </head>
 <body data-page="create">
 
+<!-- 모바일 청첩장 한 장. 배경·꽃·빛·콘텐츠가 전부 이 안에서만 산다. -->
+<div class="mobile-page">
+
 <main class="shell">
+
+  <!-- ===================================================================
+       INTRO — 메인 화면
+       메인 카피 · 서브 카피 · 버튼. 그 외에는 아무것도 두지 않는다.
+       예시 사진은 다음 장(step-showcase)으로 넘겼다.
+       =================================================================== -->
+  <section class="step step--intro is-active" id="step-intro" aria-label="메인">
+
+    <header class="head head--intro">
+      <p class="head__step">FAVORITE WEDDING INVITATION</p>
+      <h1 class="head__title head__title--hero">최애와 결혼합니다</h1>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="head__lead">이름만 넣으면,<br>그 이와 나의 청첩장이 완성됩니다.</p>
+    </header>
+
+    <div class="actions">
+      <button class="btn btn--primary btn--hero" type="button" data-goto="step-showcase">청첩장 만들기</button>
+    </div>
+
+  </section>
+
+  <!-- ===================================================================
+       SHOWCASE — 예시 사진
+       무엇을 만들 수 있는지만 보여준다. 고르는 요소가 아니라 통과 화면이다.
+       =================================================================== -->
+  <section class="step step--showcase" id="step-showcase" aria-label="청첩장 예시" hidden>
+
+    <header class="head">
+      <p class="head__step">WEDDING ALBUM</p>
+      <h2 class="head__title">이미 앞서간<br>사람들</h2>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="head__lead">선배님들의 결혼식입니다.</p>
+    </header>
+
+    <section class="gallery gallery--showcase" aria-label="사례 사진">
+      <div class="gallery__scroll" id="gallery-showcase"></div>
+    </section>
+
+    <div class="actions actions--split">
+      <button class="btn btn--ghost" type="button" data-goto="step-intro">이전</button>
+      <button class="btn btn--primary" type="button" data-goto="step-01">다음</button>
+    </div>
+
+  </section>
 
   <!-- ===================================================================
        STEP 01 — 주인공 정보
        =================================================================== -->
-  <section class="step is-active" id="step-01" aria-label="주인공 정보">
+  <section class="step" id="step-01" aria-label="주인공 정보" hidden>
 
     <header class="head">
-      <p class="head__step">FAVORITE WEDDING INVITATION</p>
-      <h1 class="head__title head__title--hero">최애와<br>결혼합니다</h1>
+      <p class="head__step">STEP 01 / 04</p>
+      <h2 class="head__title">최애와 나,<br>이름을 적어주세요</h2>
       <span class="divider" aria-hidden="true"></span>
-      <p class="head__lead">
-        최애와의 모바일 청첩장을 만들어보세요.<br>
-        상대방의 동의 여부는 확인하지 않습니다.
-      </p>
+      <p class="head__lead">청첩장에 들어갈 두 사람의 이름입니다.</p>
     </header>
 
     <form id="form-01" novalidate>
@@ -51,7 +95,7 @@
         <label class="field__label" for="input-groom">최애</label>
         <input class="field__input" id="input-groom" type="text" inputmode="text"
                placeholder="최애 이름" maxlength="16" autocomplete="off" spellcheck="false">
-        <p class="field__hint">캐릭터 · 아이돌 · 배우 등</p>
+        <p class="field__hint">※ 메이저캐에 한해 실사 이미지가 제공됩니다</p>
       </div>
 
       <div class="field">
@@ -63,17 +107,11 @@
 
       <p class="notice" id="notice-01" role="status"></p>
 
-      <div class="actions">
-        <button class="btn btn--primary" type="submit">청첩장 만들기</button>
+      <div class="actions actions--split">
+        <button class="btn btn--ghost" type="button" data-goto="step-showcase">이전</button>
+        <button class="btn btn--primary" type="submit">다음</button>
       </div>
     </form>
-
-    <!-- 분위기를 설명하는 용도. 사용자가 고르는 요소가 아니다. -->
-    <section class="gallery" aria-label="사례 사진">
-      <h2 class="gallery__title">먼저 결혼한 선배들</h2>
-      <p class="gallery__lead">이런 결혼도 이미 가능합니다.</p>
-      <div class="gallery__scroll" id="gallery-01"></div>
-    </section>
 
   </section>
 
@@ -203,7 +241,7 @@
     <div class="actions">
       <button class="btn btn--primary" type="button" id="btn-share">청첩장 공유하기</button>
       <button class="btn btn--ghost" type="button" id="btn-save">이미지 저장</button>
-      <button class="btn btn--ghost" type="button" data-goto="step-01">처음부터 다시 만들기</button>
+      <button class="btn btn--ghost" type="button" data-goto="step-intro">처음부터 다시 만들기</button>
     </div>
 
     <p class="notice" id="notice-04" role="status"></p>
@@ -230,7 +268,7 @@
 
     <section class="gallery" aria-label="사례 사진">
       <h2 class="gallery__title">이미 앞서간 사람들</h2>
-      <p class="gallery__lead">선배들의 결혼식입니다.</p>
+      <p class="gallery__lead">선배님들의 결혼식입니다.</p>
       <div class="gallery__scroll" id="gallery-04"></div>
     </section>
 
@@ -240,10 +278,14 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script src="assets/hero-photos.js" defer></script>
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
+<script src="decor.js" defer></script>
 </body>
 </html>

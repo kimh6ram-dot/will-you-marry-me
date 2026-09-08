@@ -234,10 +234,6 @@
 
   var CARD_HTML = [
     '<article class="inv" data-card>',
-      // 상단 좌우 부케. 인라인 <svg> 는 캡처에서 유실되므로 배경 이미지로 그린다.
-      '<span class="inv__deco inv__deco--tl" aria-hidden="true"></span>',
-      '<span class="inv__deco inv__deco--tr" aria-hidden="true"></span>',
-
       // 1. 이름 — 청첩장에서 가장 먼저 읽혀야 하는 정보
       '<p class="inv__eyebrow">WE ARE GETTING MARRIED</p>',
       '<p class="inv__pair">',
@@ -274,7 +270,7 @@
         '</p>',
       '</div>',
 
-      // 6. 하단 마무리 부케
+      // 6. 하단 마무리 반짝이
       '<span class="inv__divider" aria-hidden="true"></span>',
 
       '<p class="inv__closing">', CLOSING, '</p>',
@@ -486,7 +482,7 @@
   function initCreate() {
     var state = { role: 'bride', me: '', fav: '', when: '', where: '', message: '' };
 
-    mountGallery($('#gallery-01'));
+    mountGallery($('#gallery-showcase'));
     mountGallery($('#gallery-04'));
 
     function goto(stepId) {

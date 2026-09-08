@@ -11,33 +11,25 @@
    =================================================================== */
 
 :root{
-  --bg:#F8F7F3;          /* 페이지 배경 */
+  --bg:#F7F6F3;          /* 페이지 배경 */
   --card:#FFFFFF;        /* 콘텐츠 */
-  --ink:#222222;         /* 메인 텍스트 */
-  --sub:#8B877F;         /* 서브 텍스트 */
+  --ink:#1F1F1F;         /* 메인 텍스트 */
+  --sub:#8D877E;         /* 서브 텍스트 */
   --line:#EAE5DE;        /* 라인 */
   --line-strong:#DCD7D0; /* 보조 버튼 테두리 */
-  --beige:#D3BFA7;       /* 포인트 베이지 */
-  --blush:#E8D3D0;       /* 아주 연한 핑크 */
+  --beige:#D9C1A2;       /* 포인트 — 연한 샴페인 베이지 */
   --btn:#292624;         /* 메인 버튼 */
   --btn-ink:#FFFFFF;
   --warn:#B4544C;        /* 입력 오류 안내에만 사용 */
 
-  /* 플로럴 포인트 — 핑크가 아니라 화이트 / 아이보리 / 세이지그린 계열 */
-  --fl-ivory:#F3EEE6;
-  --fl-green:#D9E3D2;
-  --fl-leaf:#B7C7B0;
+  /* 유일하게 남는 장식 — 4갈래 작은 반짝이. 꽃/잎은 전부 걷어냈다.
+     인라인 <svg> 는 html2canvas 캡처에서 유실되므로 data URI 로 쓴다. */
+  --svg-sparkle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12z' fill='%23EADCC7'/%3E%3C/svg%3E");
 
-  /* 장식 SVG. 인라인 <svg> 요소는 html2canvas 캡처에서 통째로 유실되므로
-     전부 background-image data URI 로 쓴다(청첩장 저장본에도 그대로 남는다). */
-  --svg-bouquet:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 175 130' width='700' height='520' fill='none'%3E %3Cg stroke='%23BECBB7' stroke-width='1.8' stroke-linecap='round'%3E %3Cpath d='M62 70C88 84 120 98 168 114'/%3E %3Cpath d='M58 78C76 96 96 108 128 124'/%3E %3C/g%3E %3Cg fill='%23D8E2D2'%3E %3Cellipse cx='104' cy='84' rx='17' ry='9' transform='rotate(28 104 84)'/%3E %3Cellipse cx='136' cy='100' rx='15' ry='8.2' transform='rotate(30 136 100)'/%3E %3Cellipse cx='94' cy='102' rx='14' ry='7.8' transform='rotate(54 94 102)'/%3E %3Cellipse cx='120' cy='118' rx='13' ry='7.2' transform='rotate(50 120 118)'/%3E %3C/g%3E %3Cg fill='%23B8C8B1'%3E %3Cellipse cx='122' cy='72' rx='15' ry='7.6' transform='rotate(12 122 72)'/%3E %3Cellipse cx='154' cy='84' rx='13' ry='7' transform='rotate(16 154 84)'/%3E %3C/g%3E %3Cg transform='translate(36,30) scale(0.95)'%3E %3Cg stroke='%23BECBB7' stroke-width='1.3' stroke-linecap='round'%3E %3Cpath d='M0 0L-19 -20M0 0L5 -25M0 0L22 -15'/%3E %3C/g%3E %3Cg fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.1'%3E %3Ccircle cx='-20' cy='-22' r='5'/%3E%3Ccircle cx='6' cy='-27' r='4.6'/%3E %3Ccircle cx='24' cy='-16' r='4.2'/%3E%3Ccircle cx='-30' cy='-11' r='3.4'/%3E %3C/g%3E %3C/g%3E %3Cg transform='translate(112,52) scale(0.68)'%3E %3Cg stroke='%23BECBB7' stroke-width='1.3' stroke-linecap='round'%3E %3Cpath d='M0 0L-19 -20M0 0L5 -25M0 0L22 -15'/%3E %3C/g%3E %3Cg fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.1'%3E %3Ccircle cx='-20' cy='-22' r='5'/%3E%3Ccircle cx='6' cy='-27' r='4.6'/%3E %3Ccircle cx='24' cy='-16' r='4.2'/%3E%3Ccircle cx='-30' cy='-11' r='3.4'/%3E %3C/g%3E %3C/g%3E %3Cg transform='translate(22,74) rotate(-32) scale(1.05)'%3E %3Cellipse rx='7' ry='10.5' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3Cpath d='M0 -10.5V10.5' stroke='%23DCD1C0' stroke-width='1' opacity='.8'/%3E %3C/g%3E %3Cg transform='translate(96,40) rotate(26) scale(0.85)'%3E %3Cellipse rx='7' ry='10.5' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3Cpath d='M0 -10.5V10.5' stroke='%23DCD1C0' stroke-width='1' opacity='.8'/%3E %3C/g%3E %3Cg transform='translate(56,56) scale(1.5)'%3E %3Cg fill='%23F7F4EE' stroke='%23DCD1C0' stroke-width='1.1'%3E%3Cellipse cx='7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(36 7.6 -10.5)'/%3E%3Cellipse cx='12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(108 12.4 4.0)'/%3E%3Cellipse cx='0.0' cy='13.0' rx='8.5' ry='11.5' transform='rotate(180 0.0 13.0)'/%3E%3Cellipse cx='-12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(252 -12.4 4.0)'/%3E%3Cellipse cx='-7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(324 -7.6 -10.5)'/%3E%3C/g%3E %3Cg fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'%3E%3Cellipse cx='0.0' cy='-11.5' rx='8' ry='11' transform='rotate(0 0.0 -11.5)'/%3E%3Cellipse cx='10.9' cy='-3.6' rx='8' ry='11' transform='rotate(72 10.9 -3.6)'/%3E%3Cellipse cx='6.8' cy='9.3' rx='8' ry='11' transform='rotate(144 6.8 9.3)'/%3E%3Cellipse cx='-6.8' cy='9.3' rx='8' ry='11' transform='rotate(216 -6.8 9.3)'/%3E%3Cellipse cx='-10.9' cy='-3.6' rx='8' ry='11' transform='rotate(288 -10.9 -3.6)'/%3E%3C/g%3E %3Ccircle r='8' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'/%3E %3Ccircle r='4.6' fill='%23EFE7DA'/%3E %3Cpath d='M-4.4 2.4a4.9 4.9 0 1 1 6.6 3.6' fill='none' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3C/g%3E %3Cg transform='translate(100,82) scale(0.95)'%3E %3Cg fill='%23F7F4EE' stroke='%23DCD1C0' stroke-width='1.1'%3E%3Cellipse cx='7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(36 7.6 -10.5)'/%3E%3Cellipse cx='12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(108 12.4 4.0)'/%3E%3Cellipse cx='0.0' cy='13.0' rx='8.5' ry='11.5' transform='rotate(180 0.0 13.0)'/%3E%3Cellipse cx='-12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(252 -12.4 4.0)'/%3E%3Cellipse cx='-7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(324 -7.6 -10.5)'/%3E%3C/g%3E %3Cg fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'%3E%3Cellipse cx='0.0' cy='-11.5' rx='8' ry='11' transform='rotate(0 0.0 -11.5)'/%3E%3Cellipse cx='10.9' cy='-3.6' rx='8' ry='11' transform='rotate(72 10.9 -3.6)'/%3E%3Cellipse cx='6.8' cy='9.3' rx='8' ry='11' transform='rotate(144 6.8 9.3)'/%3E%3Cellipse cx='-6.8' cy='9.3' rx='8' ry='11' transform='rotate(216 -6.8 9.3)'/%3E%3Cellipse cx='-10.9' cy='-3.6' rx='8' ry='11' transform='rotate(288 -10.9 -3.6)'/%3E%3C/g%3E %3Ccircle r='8' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'/%3E %3Ccircle r='4.6' fill='%23EFE7DA'/%3E %3Cpath d='M-4.4 2.4a4.9 4.9 0 1 1 6.6 3.6' fill='none' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3C/g%3E %3Cg transform='translate(30,96) scale(0.8)'%3E %3Cg fill='%23F7F4EE' stroke='%23DCD1C0' stroke-width='1.1'%3E%3Cellipse cx='7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(36 7.6 -10.5)'/%3E%3Cellipse cx='12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(108 12.4 4.0)'/%3E%3Cellipse cx='0.0' cy='13.0' rx='8.5' ry='11.5' transform='rotate(180 0.0 13.0)'/%3E%3Cellipse cx='-12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(252 -12.4 4.0)'/%3E%3Cellipse cx='-7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(324 -7.6 -10.5)'/%3E%3C/g%3E %3Cg fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'%3E%3Cellipse cx='0.0' cy='-11.5' rx='8' ry='11' transform='rotate(0 0.0 -11.5)'/%3E%3Cellipse cx='10.9' cy='-3.6' rx='8' ry='11' transform='rotate(72 10.9 -3.6)'/%3E%3Cellipse cx='6.8' cy='9.3' rx='8' ry='11' transform='rotate(144 6.8 9.3)'/%3E%3Cellipse cx='-6.8' cy='9.3' rx='8' ry='11' transform='rotate(216 -6.8 9.3)'/%3E%3Cellipse cx='-10.9' cy='-3.6' rx='8' ry='11' transform='rotate(288 -10.9 -3.6)'/%3E%3C/g%3E %3Ccircle r='8' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'/%3E %3Ccircle r='4.6' fill='%23EFE7DA'/%3E %3Cpath d='M-4.4 2.4a4.9 4.9 0 1 1 6.6 3.6' fill='none' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3C/g%3E %3C/svg%3E");
-
-
-  --svg-flourish:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 46' width='960' height='184' fill='none'%3E %3Cg stroke='%23DCD1C0' stroke-width='1' stroke-linecap='round'%3E %3Cpath d='M4 23h56M180 23h56'/%3E %3C/g%3E %3Cg stroke='%23BECBB7' stroke-width='1.5' stroke-linecap='round'%3E %3Cpath d='M104 23L64 18M136 23l40-5'/%3E %3C/g%3E %3Cg fill='%23D8E2D2'%3E %3Cellipse cx='82' cy='19' rx='14' ry='6.8' transform='rotate(-8 82 19)'/%3E %3Cellipse cx='158' cy='19' rx='14' ry='6.8' transform='rotate(8 158 19)'/%3E %3C/g%3E %3Cg fill='%23B8C8B1'%3E %3Cellipse cx='96' cy='31' rx='11' ry='5.6' transform='rotate(20 96 31)'/%3E %3Cellipse cx='144' cy='31' rx='11' ry='5.6' transform='rotate(-20 144 31)'/%3E %3C/g%3E %3Cg transform='translate(70,30) rotate(-40) scale(0.62)'%3E %3Cellipse rx='7' ry='10.5' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3Cpath d='M0 -10.5V10.5' stroke='%23DCD1C0' stroke-width='1' opacity='.8'/%3E %3C/g%3E %3Cg transform='translate(170,30) rotate(40) scale(0.62)'%3E %3Cellipse rx='7' ry='10.5' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3Cpath d='M0 -10.5V10.5' stroke='%23DCD1C0' stroke-width='1' opacity='.8'/%3E %3C/g%3E %3Cg transform='translate(120,23) scale(1.05)'%3E %3Cg fill='%23F7F4EE' stroke='%23DCD1C0' stroke-width='1.1'%3E%3Cellipse cx='7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(36 7.6 -10.5)'/%3E%3Cellipse cx='12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(108 12.4 4.0)'/%3E%3Cellipse cx='0.0' cy='13.0' rx='8.5' ry='11.5' transform='rotate(180 0.0 13.0)'/%3E%3Cellipse cx='-12.4' cy='4.0' rx='8.5' ry='11.5' transform='rotate(252 -12.4 4.0)'/%3E%3Cellipse cx='-7.6' cy='-10.5' rx='8.5' ry='11.5' transform='rotate(324 -7.6 -10.5)'/%3E%3C/g%3E %3Cg fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'%3E%3Cellipse cx='0.0' cy='-11.5' rx='8' ry='11' transform='rotate(0 0.0 -11.5)'/%3E%3Cellipse cx='10.9' cy='-3.6' rx='8' ry='11' transform='rotate(72 10.9 -3.6)'/%3E%3Cellipse cx='6.8' cy='9.3' rx='8' ry='11' transform='rotate(144 6.8 9.3)'/%3E%3Cellipse cx='-6.8' cy='9.3' rx='8' ry='11' transform='rotate(216 -6.8 9.3)'/%3E%3Cellipse cx='-10.9' cy='-3.6' rx='8' ry='11' transform='rotate(288 -10.9 -3.6)'/%3E%3C/g%3E %3Ccircle r='8' fill='%23FFFFFF' stroke='%23DCD1C0' stroke-width='1.3'/%3E %3Ccircle r='4.6' fill='%23EFE7DA'/%3E %3Cpath d='M-4.4 2.4a4.9 4.9 0 1 1 6.6 3.6' fill='none' stroke='%23DCD1C0' stroke-width='1.2'/%3E %3C/g%3E %3C/svg%3E");
-
-  --svg-bloom:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Cg stroke='%23B7C7B0' stroke-width='1.2' stroke-linecap='round'%3E%3Cpath d='M50 98V60M50 82L33 70M50 74l15-9'/%3E%3C/g%3E%3Cg fill='%23D9E3D2'%3E%3Cellipse cx='30' cy='68' rx='7.5' ry='4' transform='rotate(-30 30 68)'/%3E%3Cellipse cx='68' cy='63' rx='7' ry='3.8' transform='rotate(28 68 63)'/%3E%3C/g%3E%3Cg fill='%23FFFFFF' stroke='%23E7E1D6' stroke-width='1'%3E%3Cellipse cx='50' cy='32' rx='6' ry='9'/%3E%3Cellipse cx='63' cy='42' rx='6' ry='9' transform='rotate(72 63 42)'/%3E%3Cellipse cx='58' cy='56' rx='6' ry='9' transform='rotate(144 58 56)'/%3E%3Cellipse cx='42' cy='56' rx='6' ry='9' transform='rotate(216 42 56)'/%3E%3Cellipse cx='37' cy='42' rx='6' ry='9' transform='rotate(288 37 42)'/%3E%3C/g%3E%3Ccircle cx='50' cy='45' r='4.5' fill='%23F3EEE6'/%3E%3C/svg%3E");
-
-  --svg-divider:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 16' fill='none'%3E%3Cg stroke='%23EAE5DE' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M2 8h56M102 8h56'/%3E%3C/g%3E%3Cg fill='%23D9E3D2'%3E%3Cellipse cx='71' cy='8' rx='6' ry='3' transform='rotate(-18 71 8)'/%3E%3Cellipse cx='89' cy='8' rx='6' ry='3' transform='rotate(18 89 8)'/%3E%3C/g%3E%3Ccircle cx='80' cy='8' r='2.6' fill='%23FFFFFF' stroke='%23DCD5C8' stroke-width='.9'/%3E%3C/svg%3E");
+  /* 웨딩홀 사진 — 사이트 분위기를 담당하는 유일한 비주얼.
+     GitHub Pages 배포를 위해 파일명을 ASCII 로 맞췄다(한글 파일명은
+     인코딩/정규화 차이로 깨질 여지가 있다). */
+  --hall:url("assets/hall.png");
 
   --sans:'Pretendard','Pretendard Variable',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
 
@@ -47,11 +39,12 @@
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none !important}
-html{height:100%}
+html{height:100%; overflow-x:hidden}
 
 body{
   min-height:100svh;
-  background:var(--bg);
+  overflow-x:hidden;
+  background:#F2F2F2;          /* 바깥은 장식 없는 단색. 웨딩 무드는 전부 안쪽에 */
   color:var(--ink);
   font-family:var(--sans);
   font-size:15px;
@@ -61,29 +54,41 @@ body{
 }
 
 /* ===================================================================
-   플로럴 장식 — 전부 '배경 보조 요소'. 본문 위로 절대 올라오지 않는다.
+   모바일 청첩장 한 장
    -------------------------------------------------------------------
-   .deco / body::before,::after : 화면 구석 장식
-   .divider                     : 제목 아래 가는 장식선
-   .inv__deco / .inv__divider   : 청첩장 카드 안 장식(캡처 대상)
+   이 사이트는 PC 레이아웃을 따로 갖지 않는다. 화면이 아무리 넓어져도
+   배경 · 꽃 · 빛 · 콘텐츠는 전부 이 폭(최대 430px) 안에서만 존재하고,
+   PC 에서는 가운데 놓인 미리보기처럼 보인다.
    =================================================================== */
+.mobile-page{
+  position:relative;
+  width:100%; max-width:430px;
+  min-height:100vh;
+  min-height:100svh;
+  margin:0 auto;
+  overflow:hidden;             /* 가장자리로 걸친 꽃을 이 폭에서 잘라낸다 */
+  background:var(--bg);        /* 웨딩 아이보리는 여기서부터 */
+  box-shadow:0 0 0 1px rgba(0,0,0,.035), 0 6px 30px rgba(0,0,0,.05);
+}
 
-/* 화면 구석 — "카메라 밖에서 살짝 보이는 부케" 정도로만.
-   fixed 라 스크롤해도 제자리에 머문다. */
-/* 제목 아래 장식선 (가는 선 + 잎사귀 + 작은 흰 꽃) */
-/* 화면 제목은 좌측 정렬이므로 장식선도 왼쪽에서 시작한다 */
+/* ===================================================================
+   장식선 — 꽃·잎을 걷어내고 가는 선 + 작은 반짝이 하나로만 남긴다.
+   =================================================================== */
 .divider{
   display:block;
-  width:124px; height:14px;
+  width:124px; height:12px;
   margin:10px 0 0;
-  background:var(--svg-divider) no-repeat left center/contain;
+  background:
+    var(--svg-sparkle) no-repeat left center / 8px 8px,
+    linear-gradient(90deg, var(--line) 0%, rgba(234,229,222,0) 100%)
+      no-repeat 14px center / 110px 1px;
 }
 
 .shell{
   position:relative; z-index:1;
   width:100%; max-width:var(--w);
   margin:0 auto;
-  padding:20px 20px calc(40px + env(safe-area-inset-bottom));
+  padding:20px 24px calc(40px + env(safe-area-inset-bottom));
 }
 
 /* --- 단계 전환 ---------------------------------------------------- */
@@ -110,12 +115,110 @@ body{
 .head__title--hero{
   font-size:clamp(29px, 8.2vw, 34px);
   line-height:1.26; font-weight:800;
+  word-break:keep-all;
 }
 
 .head__lead{
   font-size:14px; font-weight:400; line-height:1.65;
   color:var(--sub);
   margin-top:10px;
+}
+
+/* ===================================================================
+   메인 화면
+   -------------------------------------------------------------------
+   읽는 순서를 하나로 고정한다: 보조 문구 → 제목 → 설명 → CTA → 예시.
+   장식을 지우는 대신 '텍스트가 앉는 자리'만 눌러서 대비를 확보한다.
+   =================================================================== */
+.step--intro{text-align:center}
+/* 카피와 버튼만 남아 짧아졌다. 위로 몰리지 않게 한 화면 안에서 세로
+   가운데(살짝 위)에 앉힌다. .step{display:none} 을 이기지 않도록
+   .is-active 와 함께 건다. */
+.step--intro.is-active{
+  display:flex; flex-direction:column; justify-content:center;
+  min-height:calc(100svh - 62px);
+  padding-bottom:6vh;
+}
+
+.head--intro{
+  position:relative;
+  margin-bottom:0;
+}
+
+/* 제목·설명 뒤에 깔리는 옅은 판. 배경 꽃·샹들리에와 글자가 섞이지 않게
+   한다. 장식을 없애는 게 아니라 글자 자리에서만 한 겹 물린다. */
+.head--intro::before{
+  content:'';
+  position:absolute; z-index:-1;
+  left:-16%; right:-16%; top:-4%; bottom:-16%;
+  background:radial-gradient(58% 54% at 50% 46%,
+    rgba(248,247,243,.95) 0%, rgba(248,247,243,.74) 56%, rgba(248,247,243,0) 100%);
+}
+
+.head--intro .head__step{
+  font-size:10.5px; letter-spacing:.2em;
+  text-indent:.2em;              /* 자간 때문에 왼쪽으로 밀려 보이는 걸 보정 */
+  color:#B0997C;
+  margin-bottom:12px;
+}
+
+/* 화면에서 가장 강한 요소. 한 줄을 유지한 채 크기만 끌어올린다. */
+.head--intro .head__title--hero{
+  font-size:clamp(30px, 9.4vw, 38px);
+  line-height:1.2; font-weight:800; letter-spacing:-.035em;
+  color:#1A1A1A;
+}
+
+/* 제목이 좌측 정렬이 아니므로 장식선도 가운데. 반짝이를 가운데 두고
+   선을 좌우로 흘린다. */
+.head--intro .divider{
+  width:112px; height:10px;
+  margin:14px auto 0;
+  background:
+    var(--svg-sparkle) no-repeat center / 9px 9px,
+    linear-gradient(90deg, rgba(217,193,162,0) 0%, #DCD3C6 100%)
+      no-repeat left center / 46px 1px,
+    linear-gradient(90deg, #DCD3C6 0%, rgba(217,193,162,0) 100%)
+      no-repeat right center / 46px 1px;
+}
+
+.head--intro .head__lead{
+  font-size:15.5px; line-height:1.6;
+  color:#6E6862;                 /* --sub 보다 진하게 — 배경 위 가독성 */
+  margin-top:14px;
+}
+
+/* CTA — 제목 다음으로 강한 요소. 설명 바로 아래에서 이어진다. */
+.step--intro .actions{margin-top:26px}
+/* .btn 기본값·좁은화면 미디어쿼리보다 뒤에 오도록 선택자를 한 겹 얹는다 */
+.step--intro .btn--hero{
+  max-width:340px; margin:0 auto;
+  min-height:60px; font-size:17px; letter-spacing:-.02em;
+}
+
+
+/* 예시 — 3장뿐이라 가로 스크롤을 쓸 이유가 없다. 고정 3열이 더 정돈돼
+   보이고 '넘겨야 하나' 하는 판단 자체를 없앤다. */
+/* 예시 화면의 갤러리 — 사진이 3장뿐이라 가로 스크롤을 쓸 이유가 없다.
+   고정 3열이 더 정돈돼 보이고 '넘겨야 하나' 하는 판단도 없앤다.
+   제목·설명은 화면 헤더가 대신하므로 여기엔 사진만 둔다. */
+.gallery--showcase{margin-top:4px}
+.gallery--showcase .gallery__scroll{
+  display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;
+  margin:0; padding:0;
+  overflow:visible;
+}
+.gallery--showcase .shot{width:auto}
+.gallery--showcase .shot__cap{font-size:11.5px; margin-top:7px}
+
+/* 통과 화면이라 버튼을 사진에서 조금 떨어뜨린다 */
+.step--showcase .actions{margin-top:28px}
+
+/* 메인과 마찬가지로 내용이 짧다. 위로 몰리지 않게 세로 가운데에 앉힌다. */
+.step--showcase.is-active{
+  display:flex; flex-direction:column; justify-content:center;
+  min-height:calc(100svh - 62px);
+  padding-bottom:6vh;
 }
 
 /* ===================================================================
@@ -258,7 +361,7 @@ body{
   overflow-x:auto;
   scroll-snap-type:x proximity;
   -webkit-overflow-scrolling:touch;
-  margin:0 -20px; padding:0 20px 4px;
+  margin:0 -24px; padding:0 24px 4px;
   scrollbar-width:none;
 }
 .gallery__scroll::-webkit-scrollbar{display:none}
@@ -277,6 +380,194 @@ body{
   margin-top:8px;
 }
 
+
+/* ===================================================================
+   배경 레이어 (.stage) — 웨딩홀 사진 + 아주 작은 반짝이
+   -------------------------------------------------------------------
+   꽃 · 잎 · 부케 · 코너 플로럴 · 떨어지는 꽃잎 · SVG 샹들리에는 전부
+   걷어냈다. 분위기는 assets 의 웨딩홀 사진 한 장이 담당하고, 장식은
+   '있는 듯 없는 듯' 한 반짝이 몇 개만 남긴다.
+
+   .shell 의 형제로 둔다. 청첩장 카드의 조상이 되면 html2canvas 가
+   저장 이미지에 배경을 함께 그려버린다.
+   폭은 .mobile-page 와 똑같이 묶고, 세로는 fixed 로 화면에 고정한다.
+   =================================================================== */
+.stage{
+  position:fixed; z-index:0;
+  top:0; bottom:0; left:50%;
+  width:100%; max-width:430px;
+  transform:translateX(-50%);
+  pointer-events:none;                 /* 터치·클릭을 절대 막지 않는다 */
+  overflow:hidden;
+}
+
+/* 웨딩홀 사진 — 상단에 원본 비율 그대로 얹고 아래로 하얗게 풀어준다.
+   어두운 오버레이는 쓰지 않는다. 위에서부터 흰 막을 겹쳐 밝기를 올리고,
+   화면 중간쯤에서 완전히 배경색으로 녹아 텍스트 자리를 비워 준다. */
+.stage__hall{
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(180deg,
+      rgba(255,255,255,.46) 0%,
+      rgba(255,255,255,.68) 18%,
+      rgba(247,246,243,.93) 34%,
+      var(--bg) 48%,
+      var(--bg) 100%),
+    var(--hall);
+  background-size:100% 100%, 100% auto;
+  background-position:0 0, center top;
+  background-repeat:no-repeat, no-repeat;
+  transition:opacity .4s ease;
+}
+
+/* 입력 단계에서는 사진을 한 겹 더 물린다 — 읽고 고르는 화면이라
+   배경이 글자·선택지와 다투면 안 된다. 메인 화면과 완성된 청첩장
+   화면(step-04 · invite.html)에서는 사진을 그대로 살린다. */
+body:has(#step-01.is-active) .stage__hall,
+body:has(#step-02.is-active) .stage__hall,
+body:has(#step-03.is-active) .stage__hall{opacity:.42}
+
+/* 가장자리만 아주 옅게 눌러 사진과 페이지 경계를 부드럽게 만든다 */
+.stage__vignette{
+  position:absolute; inset:0;
+  background:radial-gradient(120% 84% at 50% 30%,
+    rgba(255,255,255,0) 58%, rgba(238,233,224,.18) 88%, rgba(228,221,209,.28) 100%);
+}
+
+/* ===================================================================
+   반짝임 — 아이콘이 아니라 '빛이 반사되는 찰나'
+   -------------------------------------------------------------------
+   두 겹으로 만든다.
+     .tw__bloom  부드럽게 번지는 광무리 (radial-gradient)
+     .tw__core   아주 밝은 중심 광점
+     .tw__flare  4갈래 반짝이 — 절정 순간에만 아주 작게 스친다
+   색은 노란빛을 걷어내고 화이트 · 아이보리 · 연한 샴페인으로 맞췄다.
+   위치는 decor.js 가 정해진 몇 자리에서만 골라 쓴다.
+   =================================================================== */
+.tw{
+  position:absolute;
+  width:var(--sz, 18px); height:var(--sz, 18px);
+  margin:calc(var(--sz, 18px) / -2) 0 0 calc(var(--sz, 18px) / -2);
+  opacity:0;
+  will-change:opacity, transform;
+}
+.tw i{position:absolute; inset:0; display:block; opacity:0}
+
+.tw__bloom{
+  border-radius:50%;
+  background:radial-gradient(circle,
+    rgba(255,255,255,1)   0%,
+    rgba(255,253,248,.90) 18%,
+    rgba(248,244,236,.55) 38%,
+    rgba(234,220,199,.24) 58%,
+    rgba(234,220,199,0)   76%);
+  transform:scale(1.8);
+}
+.tw__core{
+  border-radius:50%;
+  background:radial-gradient(circle,
+    #FFFFFF 0%, #FFFFFF 24%, #F8F4EC 44%, rgba(248,244,236,0) 68%);
+  box-shadow:0 0 6px 1px rgba(255,255,255,.95),
+             0 0 13px 3px rgba(255,253,248,.8),
+             0 0 22px 7px rgba(234,220,199,.4);
+  transform:scale(.45);
+}
+/* 십자 섬광 — 얇은 두 줄기를 배경 그라데이션으로 그린다 */
+.tw__flare{
+  background:var(--svg-sparkle) no-repeat center/contain;
+  transform:rotate(var(--rot, 0deg)) scale(.3);
+}
+
+/* 켜지는 순간에만 짧게 터진다 (0.85~1.7초) */
+.tw.is-on{animation:twLife var(--dur, 1.2s) ease-out both}
+.tw.is-on .tw__bloom{animation:twBloom var(--dur, 1.2s) ease-out both}
+.tw.is-on .tw__core {animation:twCore  var(--dur, 1.2s) ease-out both}
+.tw.is-on .tw__flare{animation:twFlare var(--dur, 1.2s) ease-out both}
+
+@keyframes twLife{
+  0%{opacity:0} 12%{opacity:1} 74%{opacity:1} 100%{opacity:0}
+}
+@keyframes twBloom{
+  0%  {opacity:0;   transform:scale(1.2)}
+  18% {opacity:.85; transform:scale(2.1)}
+  58% {opacity:.7;  transform:scale(1.95)}
+  100%{opacity:0;   transform:scale(1.7)}
+}
+@keyframes twCore{
+  0%  {opacity:0;  transform:scale(.4)}
+  16% {opacity:1;  transform:scale(1.15)}
+  55% {opacity:1;  transform:scale(.95)}
+  78% {opacity:.6; transform:scale(.85)}
+  100%{opacity:0;  transform:scale(.75)}
+}
+/* 십자 섬광은 절정 부근에서만 스쳐 지나간다 */
+@keyframes twFlare{
+  0%  {opacity:0;   transform:rotate(var(--rot,0deg)) scale(.3)}
+  18% {opacity:.95; transform:rotate(var(--rot,0deg)) scale(1.5)}
+  46% {opacity:.7;  transform:rotate(var(--rot,0deg)) scale(1.7)}
+  100%{opacity:0;   transform:rotate(var(--rot,0deg)) scale(1.55)}
+}
+
+/* 앞 레이어 — 콘텐츠(.shell, z-index 1) 위를 스쳐 지나가는 빛.
+   .shell 의 형제라서 저장 이미지에는 잡히지 않는다. */
+.stage--front{z-index:3}
+
+
+/* ===================================================================
+   등장 모션
+   =================================================================== */
+
+/* 스크롤 등장 — JS 가 .reveal 을 붙일 때만 숨긴다(스크립트가 죽어도 보임) */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease-out, transform .6s ease-out}
+.reveal.is-in{opacity:1; transform:none}
+
+/* 청첩장 카드 등장 */
+.inv{animation:cardIn .85s cubic-bezier(.16,.84,.44,1) both}
+@keyframes cardIn{
+  from{opacity:0; transform:translateY(20px) scale(.97)}
+  to  {opacity:1; transform:none}
+}
+
+/* 카드 내부 요소는 0.1초 간격으로 순차 등장 */
+.inv > *{animation:riseIn .5s ease-out both}
+.inv > *:nth-child(1){animation-delay:.30s}   /* 영문 */
+.inv > *:nth-child(2){animation-delay:.40s}   /* 이름 */
+.inv > *:nth-child(3){animation-delay:.50s}   /* 장식선 */
+.inv > *:nth-child(4){animation-delay:.60s}   /* 사진 */
+.inv > *:nth-child(5){animation-delay:.70s}   /* 일시·장소 */
+.inv > *:nth-child(6){animation-delay:.80s}   /* MESSAGE */
+.inv > *:nth-child(n+7){animation-delay:.88s}
+@keyframes riseIn{from{opacity:0; transform:translateY(9px)} to{opacity:1; transform:none}}
+
+/* 캐릭터 사진 — 정지 이미지의 딱딱함만 덜어내는 정도 */
+.inv__photo{animation:breathe 7s ease-in-out infinite}
+@keyframes breathe{
+  0%,100%{transform:scale(1)}
+  50%    {transform:scale(1.015)}
+}
+
+/* ===================================================================
+   저장(html2canvas) 중에는 모든 애니메이션을 멈춘다.
+   중간 프레임의 transform / opacity 가 그대로 캡처되는 것을 막는다.
+   transform 을 통째로 지우지 않고 animation 만 끈다.
+   =================================================================== */
+.inv.is-capturing,
+.inv.is-capturing *{animation:none !important}
+
+/* ===================================================================
+   움직임 최소화 설정 — 반복 애니메이션 전부 정지
+   =================================================================== */
+@media (prefers-reduced-motion:reduce){
+  .tw, .tw i,
+  .inv, .inv > *, .inv__photo{animation:none !important}
+  .reveal{opacity:1; transform:none; transition:none}
+}
+
+/* 좁은 화면에서는 사진이 차지하는 높이를 조금 줄여 텍스트 자리를 넓힌다 */
+@media (max-width:430px){
+  .stage__hall{background-size:100% 100%, 116% auto}
+}
+
 /* ===================================================================
    STEP 04 — 청첩장
    -------------------------------------------------------------------
@@ -289,33 +580,24 @@ body{
   width:min(92vw, 410px);
   max-width:100%;              /* .shell 안쪽을 넘지 않게 */
   margin:0 auto;
-  background:var(--card);
-  border:1px solid var(--line);
+  /* 위에서 빛이 떨어지는 결 + 사선 광택. box-shadow 대신 background 를
+     쓰는 이유: html2canvas 는 box-shadow 를 그리지 않아 저장본이 달라진다. */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 100%),
+    var(--card);
+  border:1px solid #EFEAE2;
   border-radius:var(--r);
-  padding:22px 18px 18px;
+  padding:24px 18px 18px;
   text-align:center;
+  box-shadow:0 1px 2px rgba(31,31,31,.03), 0 10px 30px rgba(31,31,31,.05);
 }
 
-/* 상단 좌우 부케 — 이름을 살짝 감싸되 글자를 침범하지 않는다 */
-.inv__deco{
-  position:absolute; z-index:0;
-  top:8px;
-  width:25%;
-  aspect-ratio:175 / 130;
-  background:var(--svg-bouquet) no-repeat center/contain;
-  opacity:.95;
-  pointer-events:none;
-}
-.inv__deco--tl{left:0}
-.inv__deco--tr{right:0; transform:scaleX(-1)}   /* 좌우 대칭 */
-
-/* 장식 위로 본문이 오게 */
-.inv > *:not(.inv__deco){position:relative; z-index:1}
+.inv > *{position:relative; z-index:1}
 
 /* --- 1. 이름 (가장 강한 위계) -------------------------------------- */
 .inv__eyebrow{
-  font-size:9.5px; font-weight:600; letter-spacing:.22em;
-  color:#C8AA86;
+  font-size:9.5px; font-weight:700; letter-spacing:.22em;
+  color:#BFA582;
   margin-bottom:8px;
 }
 
@@ -324,38 +606,45 @@ body{
   display:block;
   font-size:clamp(26px, 7.4vw, 30px); font-weight:800;
   line-height:1.15; letter-spacing:-.03em;
-  color:#222222;
+  color:var(--ink);
   word-break:keep-all;
 }
 .inv__amp{
   display:block;
   font-size:14px; font-weight:500; line-height:1;
-  color:#C8AA86;
+  color:#C4A57F;
   margin:4px 0;
 }
 
-/* --- 2. 이름 아래 작은 장식선 -------------------------------------- */
+/* --- 2. 이름 아래 작은 장식선 — 가는 선 하나 + 반짝이 하나 -------- */
 .inv__rule{
   display:block;
-  width:100px; aspect-ratio:240 / 46;
-  margin:12px auto 0;
-  background:var(--svg-flourish) no-repeat center/contain;
+  width:96px; height:9px;
+  margin:14px auto 0;
+  background:
+    var(--svg-sparkle) no-repeat center / 8px 8px,
+    linear-gradient(90deg, rgba(217,193,162,0) 0%, #E2DACE 100%)
+      no-repeat left center / 38px 1px,
+    linear-gradient(90deg, #E2DACE 0%, rgba(217,193,162,0) 100%)
+      no-repeat right center / 38px 1px;
 }
 
-/* --- 3. 대표 사진 — 위에 꽃을 겹치지 않는다 ------------------------ */
+/* --- 3. 대표 사진 — 얇은 아이보리 라인 + 약간의 여백만 -------------- */
 .inv__frame{
   background:#FFFFFF;
-  border:1px solid #EFE8DE;
+  border:1px solid #EFEAE2;
   border-radius:8px;
   padding:5px;
-  margin:12px 0 0;
+  margin:14px 0 0;
+  box-shadow:0 1px 6px rgba(31,31,31,.04);
 }
-/* object-fit 은 html2canvas 가 못 그린다 → 배경 이미지 + cover */
+/* object-fit 은 html2canvas 가 못 그린다 → 배경 이미지 + cover.
+   캐릭터 매칭이 없을 때의 기본 사진이 웨딩홀 사진이다. */
 .inv__photo{
   aspect-ratio:16 / 9;
   border-radius:6px;
-  background:#EFECE7 center 22%/cover no-repeat;
-  background-image:url("assets/wedding-04.png");
+  background:#F1EFEA center 42%/cover no-repeat;
+  background-image:var(--hall);
 }
 .inv__photo.is-missing{display:none}
 
@@ -364,19 +653,19 @@ body{
   display:grid; grid-template-columns:1fr 1fr;
   margin-top:16px;
   padding:16px 8px;
-  border-top:1px solid #EAE4DC;
-  border-bottom:1px solid #EAE4DC;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
 }
 .inv__col{text-align:center; padding:0 6px}
-.inv__col + .inv__col{border-left:1px solid #F1ECE4}
+.inv__col + .inv__col{border-left:1px solid #F2EEE8}
 
 .inv__lbl{
-  font-size:8px; font-weight:600; letter-spacing:.15em;
-  color:#C6AA89;
+  font-size:8.5px; font-weight:700; letter-spacing:.15em;
+  color:#BFA582;
 }
 .inv__val{
   font-size:16px; font-weight:700; line-height:1.35; letter-spacing:-.02em;
-  color:#222222;
+  color:var(--ink);
   margin-top:5px;
   word-break:keep-all;
 }
@@ -387,28 +676,33 @@ body{
   max-width:90%;
   margin:8px auto 0;
   font-size:17px; font-weight:700; line-height:1.55; letter-spacing:-.02em;
-  color:#262626;
+  color:var(--ink);
   word-break:keep-all;
 }
-.inv__q{color:#D6C4AC}
+.inv__q{color:#DCC7AB}
 
-/* --- 6. 하단 마무리 부케 ------------------------------------------- */
+/* --- 6. 하단 마무리 — 반짝이 하나로만 끝낸다 ---------------------- */
 .inv__divider{
   display:block;
-  width:150px; aspect-ratio:240 / 46;
-  margin:16px auto 0;
-  background:var(--svg-flourish) no-repeat center/contain;
+  width:130px; height:10px;
+  margin:18px auto 0;
+  background:
+    var(--svg-sparkle) no-repeat center / 9px 9px,
+    linear-gradient(90deg, rgba(217,193,162,0) 0%, #E2DACE 100%)
+      no-repeat left center / 52px 1px,
+    linear-gradient(90deg, #E2DACE 0%, rgba(217,193,162,0) 100%)
+      no-repeat right center / 52px 1px;
 }
 
 /* --- 7. 하단 보조 정보 --------------------------------------------- */
 .inv__closing{
   font-size:10px; font-weight:400; line-height:1.6;
-  color:#A8A29B;
-  margin-top:10px;
+  color:#96908A;
+  margin-top:12px;
 }
 .inv__note{
   font-size:9.5px; font-weight:400; line-height:1.6;
-  color:#B5AFA8;
+  color:#A49E97;
   margin-top:3px;
 }
 .inv__mark{
@@ -584,14 +878,13 @@ body{
 
 /* --- 좁은 화면 (375px 계열) --------------------------------------- */
 @media (max-width:390px){
-  .inv__deco{width:27%; top:6px}
   .inv__divider{width:136px}
   .inv__rule{width:92px}
   .inv__val{font-size:15px}
   .inv__quote{font-size:16px}
   .divider{width:118px}
-  .shell{padding-left:18px; padding-right:18px}
-  .gallery__scroll{margin:0 -18px; padding:0 18px 4px}
+  .shell{padding-left:20px; padding-right:20px}
+  .gallery__scroll{margin:0 -20px; padding:0 20px 4px}
   .inv{padding:20px 15px 16px}
   .opt__box{min-height:52px; padding:13px 42px 13px 14px; font-size:14.5px}
   .btn{min-height:52px; font-size:15px}

@@ -16,6 +16,9 @@
 </head>
 <body data-page="invite">
 
+<!-- 모바일 청첩장 한 장. 배경·꽃·빛·콘텐츠가 전부 이 안에서만 산다. -->
+<div class="mobile-page">
+
 <main class="shell">
 
   <p class="state" id="invite-state" role="status">청첩장을 불러오는 중입니다.</p>
@@ -33,7 +36,7 @@
 
     <section class="gallery" aria-label="사례 사진">
       <h2 class="gallery__title">이미 앞서간 사람들</h2>
-      <p class="gallery__lead">선배들의 결혼식입니다.</p>
+      <p class="gallery__lead">선배님들의 결혼식입니다.</p>
       <div class="gallery__scroll" id="gallery-invite"></div>
     </section>
 
@@ -43,10 +46,14 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script src="assets/hero-photos.js" defer></script>
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
+<script src="decor.js" defer></script>
 </body>
 </html>

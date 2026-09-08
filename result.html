@@ -13,6 +13,9 @@
 </head>
 <body data-page="result">
 
+<!-- 모바일 청첩장 한 장. 배경·꽃·빛·콘텐츠가 전부 이 안에서만 산다. -->
+<div class="mobile-page">
+
 <main class="shell">
 
   <p class="state" id="result-state" role="status">집계를 불러오는 중입니다.</p>
@@ -68,8 +71,12 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
+</div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
+<script src="decor.js" defer></script>
 </body>
 </html>
