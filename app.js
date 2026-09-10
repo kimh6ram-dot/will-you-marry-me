@@ -16,63 +16,20 @@
      1. 문구 · 이미지 테이블
      ================================================================= */
 
-  var CLOSING = '두 사람의 새로운 시작을 마음속으로 축복해주세요.';
+  // <br> 로 줄바꿈 위치를 고정한다(카드에만 들어가는 고정 문구라 안전).
+  var CLOSING = '두 사람의 새로운 시작을<br>마음속으로 축복해주세요!';
   var NOTE = '※ 실제 혼인 여부와는 무관합니다.';
   var MESSAGE_FALLBACK = '오랜 덕질 끝에 결실을 맺게 되었습니다.';
   var NAME_FALLBACK = { groom: '최애', bride: '나' };
 
-  /* '나'의 역할에 따라 쓰는 대표 사진.
-     bride = 내가 신부(여자) / groom = 내가 신랑(남자).
-     한 벌 중 하나를 무작위로 골라 DB(photo_key)에 저장한다 —
-     하객이 링크로 열었을 때도 같은 사진이 보여야 하기 때문이다. */
-  var PHOTO_SETS = {
-    bride: ['wedding-04', 'wedding-05'],
-    groom: ['wedding-01', 'wedding-02', 'wedding-03']
-  };
-  var PHOTO_FALLBACK = 'wedding-04';
-
-  /* 최애 이름이 아래 캐릭터와 일치하면 전용 사진을 쓴다.
-     일치하지 않으면 위 PHOTO_SETS 의 기존 로직이 그대로 돌아간다.
-     키는 공백을 모두 지운 형태 — '고죠 사토루', '고죠사토루',
-     '고죠  사토루' 가 전부 같은 키가 된다. */
-  var CHARACTER_PHOTOS = {
-    '하울':       'howl',
-    '고죠사토루':  'gojo',
-    '나나미켄토':  'nanami',
-    '리바이':     'levi',
-    '로이드포저':  'loid',
-    '토모에':     'tomoe',
-    '하쿠':       'haku',
-    '렌고쿠쿄주로': 'rengoku'
-  };
-
-  /* 이름 비교용 정규화 — 앞뒤 공백을 자르고 내부 공백을 모두 지운다.
-     \s 는 일반 공백뿐 아니라 전각 공백·탭도 잡는다. */
-  function normalizeFavoriteName(name) {
-    return String(name == null ? '' : name).trim().replace(/\s+/g, '');
-  }
-
-  /** 최애 이름에 대응하는 캐릭터 키. 없으면 null. */
-  function characterKeyFor(name) {
-    return CHARACTER_PHOTOS[normalizeFavoriteName(name)] || null;
-  }
-
-  /* 캐릭터 사진은 1장당 130~170KB 라 전부 미리 받지 않는다.
-     매칭됐을 때만 해당 파일 하나를 불러온다. */
-  function loadCharacterPhoto(key) {
-    return new Promise(function (resolve) {
-      if (!key) return resolve(null);
-      if (window.CHAR_PHOTOS && window.CHAR_PHOTOS[key]) return resolve(key);
-
-      var s = document.createElement('script');
-      s.src = 'assets/characters/' + key + '.js';
-      s.onload = function () {
-        resolve(window.CHAR_PHOTOS && window.CHAR_PHOTOS[key] ? key : null);
-      };
-      s.onerror = function () { resolve(null); };   // 실패해도 기존 사진으로 계속 간다
-      document.head.appendChild(s);
-    });
-  }
+  /* 대표 사진 정책
+     ------------------------------------------------------------------
+     운영자가 제공하는 인물·캐릭터 사진은 없다. 대표 사진은 오직
+     사용자가 STEP 01 에서 자기 기기에서 직접 고른 이미지 하나뿐이고,
+     FileReader 로 읽어 이 페이지의 메모리(state.photo)에만 담는다.
+     서버 전송·localStorage·DB 기록이 전부 없으므로 페이지를 닫으면
+     이미지 데이터는 남지 않는다.
+     이미지를 고르지 않으면 CSS 기본값(웨딩홀 배경 사진)이 그대로 보인다. */
 
   // 이 장소를 고르면 직접 입력칸이 펼쳐지고, 청첩장에는 입력값이 들어간다.
   var CUSTOM_PLACE = '애니에 나오는 장소';
@@ -195,10 +152,7 @@
   }
 
   var LOCAL_MSG = {
-    share: '미리보기 모드 · 이 링크는 지금 이 브라우저에서만 열립니다. ' +
-           '다른 사람에게 보내려면 config.js 에 Supabase 값을 넣어 주세요.',
-    view:  '미리보기 모드 · 이 브라우저에 저장된 청첩장입니다. ' +
-           'config.js 에 Supabase 값을 넣으면 링크 공유와 집계가 켜집니다.'
+    view: '미리보기 모드 · 이 브라우저에 저장된 청첩장입니다.'
   };
 
   /* 미리보기 모드 배너. 첫 화면에는 띄우지 않는다 — 아직 링크가 없어서
@@ -234,11 +188,11 @@
 
   var CARD_HTML = [
     '<article class="inv" data-card>',
-      // 1. 이름 — 청첩장에서 가장 먼저 읽혀야 하는 정보
-      '<p class="inv__eyebrow">WE ARE GETTING MARRIED</p>',
+      // 1. 인사말 + 두 사람 이름 (가로 한 줄, 가운데 하트)
+      '<p class="inv__greet">저희 드디어 결혼합니다 !</p>',
       '<p class="inv__pair">',
         '<span class="inv__name" data-groom></span>',
-        '<span class="inv__amp">&amp;</span>',
+        '<span class="inv__heart" aria-hidden="true"></span>',
         '<span class="inv__name" data-bride></span>',
       '</p>',
 
@@ -251,29 +205,30 @@
       // 4. 일시 · 장소를 한 블록 2열로
       '<div class="inv__info">',
         '<div class="inv__col">',
-          '<p class="inv__lbl">WEDDING DAY</p>',
+          '<p class="inv__lbl">예식 일시</p>',
           '<p class="inv__val" data-when></p>',
         '</div>',
         '<div class="inv__col">',
-          '<p class="inv__lbl">PLACE</p>',
+          '<p class="inv__lbl">예식 장소</p>',
           '<p class="inv__val" data-place></p>',
         '</div>',
       '</div>',
 
-      // 5. MESSAGE — 정보가 아니라 감정. 위계를 다르게 준다.
+      // 5. 모시는 글 — 정보가 아니라 감정. 영문 라벨을 떼서
+      //    '항목'이 아니라 '인사말'로 읽히게 한다.
       '<div class="inv__msg">',
-        '<p class="inv__lbl">MESSAGE</p>',
         '<p class="inv__quote">',
           '<span class="inv__q">\u201C</span>',
           '<span data-message></span>',
           '<span class="inv__q">\u201D</span>',
         '</p>',
+        // 맺음말도 모시는 글과 같은 결로 읽히도록 이 블록 안에 올려 둔다
+        '<p class="inv__quote inv__quote--sub">', CLOSING, '</p>',
       '</div>',
 
       // 6. 하단 마무리 반짝이
       '<span class="inv__divider" aria-hidden="true"></span>',
 
-      '<p class="inv__closing">', CLOSING, '</p>',
       '<p class="inv__note">', NOTE, '</p>',
 
       '<div class="guest" data-guest hidden>',
@@ -299,14 +254,16 @@
   /**
    * 청첩장을 mount 안에 그리고 카드 루트를 돌려준다.
    * @param {Element} mount
-   * @param {{reactions?: boolean}} opts  reactions=true 면 하객 버튼 노출
+   * @param {{reactions?: boolean, photo?: string}} opts
+   *   reactions=true 면 하객 버튼 노출.
+   *   photo 는 사용자가 이 기기에서 고른 이미지의 dataURL (없으면 기본 배경).
    */
   function mountCard(mount, opts) {
     opts = opts || {};
     mount.innerHTML = CARD_HTML;
     var card = $('[data-card]', mount);
     if (opts.reactions) $('[data-guest]', card).hidden = false;
-    setupPhoto(card, opts.photoKey, opts.charKey);
+    setupPhoto(card, opts.photo);
     return card;
   }
 
@@ -329,35 +286,16 @@
   }
 
   /* 대표 사진을 넣는다.
-     hero-photos.js 의 data URI 를 쓴다 — 파일 경로 이미지는 file:// 에서
-     캔버스를 오염시켜 '이미지 저장'이 실패하기 때문이다. 파일이 없으면
-     원본 PNG 로 폴백하고, 그마저 없으면 사진 영역을 접는다. */
-  function setupPhoto(card, key, charKey) {
+     넘어오는 값은 언제나 dataURL 한 장이다 — 사용자가 고른 사진이거나,
+     신부용 템플릿에 그 사진을 합성한 결과(facefit.js 가 캔버스에서
+     미리 납작하게 만들어 둔다)다. 레이어가 없으므로 html2canvas 가
+     화면과 다르게 그릴 여지가 없다.
+     값이 없으면 아무것도 하지 않는다 → CSS 기본값(웨딩홀 배경)이 채운다. */
+  function setupPhoto(card, photo) {
     var box = $('[data-photo]', card);
-    if (!box) return;
-
-    // 1순위: 캐릭터 전용 사진 / 2순위: 기존 사진 로직
-    var chosen = charKey && window.CHAR_PHOTOS && window.CHAR_PHOTOS[charKey];
-    if (chosen) {
-      box.style.backgroundImage = 'url("' + chosen.data + '")';
-      box.style.backgroundPosition = chosen.pos;
-      return;
-    }
-
-    key = key || PHOTO_FALLBACK;
-    var shot = window.HERO_PHOTOS && window.HERO_PHOTOS[key];
-
-    if (shot) {
-      box.style.backgroundImage = 'url("' + shot.data + '")';
-      box.style.backgroundPosition = shot.pos;
-      return;
-    }
-
-    var src = 'assets/' + key + '.png';
-    var probe = new Image();
-    probe.onload = function () { box.style.backgroundImage = 'url("' + src + '")'; };
-    probe.onerror = function () { box.classList.add('is-missing'); };
-    probe.src = src;
+    if (!box || !photo) return;
+    box.style.backgroundImage = 'url("' + photo + '")';
+    box.style.backgroundPosition = 'center';
   }
 
   /* =================================================================
@@ -432,58 +370,23 @@
      7. 복사 · 토스트
      ================================================================= */
 
-  // navigator.clipboard 는 https/localhost 에서만 동작 → execCommand 폴백을 둔다.
-  function copyText(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text)
-        .then(function () { return true; })
-        .catch(function () { return legacyCopy(text); });
-    }
-    return Promise.resolve(legacyCopy(text));
-  }
-
-  function legacyCopy(text) {
-    try {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.setAttribute('readonly', '');
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      var ok = document.execCommand('copy');
-      document.body.removeChild(ta);
-      return ok;
-    } catch (err) {
-      return false;
-    }
-  }
-
-  var toastTimer = null;
-
-  function toast(message, ms) {
-    var el = $('#toast');
-    if (!el) return;
-    setText(el, message);
-    el.hidden = false;
-    requestAnimationFrame(function () { el.classList.add('is-on'); });
-
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () {
-      el.classList.remove('is-on');
-      setTimeout(function () { el.hidden = true; }, 240);
-    }, ms || 2400);
-  }
-
   /* =================================================================
      8. index.html — STEP 01 ~ 04
      ================================================================= */
 
   function initCreate() {
-    var state = { role: 'bride', me: '', fav: '', when: '', where: '', message: '' };
+    /* 이 화면이 들고 있는 값. 전부 메모리에만 있고 서버로 나가지 않는다.
+         photo     업로드 이미지 dataURL
+         template  무작위로 정해진 신부용 템플릿(FaceFit 항목). 없으면 null
+         crop      얼굴 맞추기 결과 — 원본 사진에서 잘라낼 원 {cx, cy, r} */
+    var state = {
+      role: 'bride', me: '', fav: '', when: '', where: '', message: '',
+      photo: null,
+      template: null,
+      crop: null
+    };
 
     mountGallery($('#gallery-showcase'));
-    mountGallery($('#gallery-04'));
 
     function goto(stepId) {
       $$('.step').forEach(function (el) {
@@ -517,6 +420,106 @@
       state.me = me;
       goto('step-02');
     });
+
+    // --- STEP 01: 사진(선택) ---------------------------------------
+    // 파일은 FileReader 로 이 브라우저 안에서만 읽는다. 서버 전송 없음.
+    // 청첩장 없이도(사진을 고르지 않아도) 다음 단계로 갈 수 있다.
+    var photoInput = $('#input-photo');
+    var photoBtn = $('#btn-photo');
+    var photoClear = $('#btn-photo-clear');
+    var photoThumb = $('#photo-thumb');
+
+    function setPhoto(dataUrl) {
+      state.photo = dataUrl || null;
+      var on = !!state.photo;
+      photoThumb.hidden = !on;
+      photoThumb.style.backgroundImage = on ? 'url("' + state.photo + '")' : '';
+      photoClear.hidden = !on;
+      photoBtn.textContent = on ? '이미지 변경' : '이미지 추가';
+      if (typeof syncFitUI === 'function') syncFitUI();
+    }
+
+    if (photoInput && photoBtn) {
+      photoBtn.addEventListener('click', function () { photoInput.click(); });
+
+      photoInput.addEventListener('change', function () {
+        var file = photoInput.files && photoInput.files[0];
+        // 같은 파일을 다시 골라도 change 가 뜨도록 즉시 비운다.
+        photoInput.value = '';
+        if (!file) return;
+
+        if (file.type.indexOf('image/') !== 0) {
+          toast('이미지 파일만 넣을 수 있어요.');
+          return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function () { setPhoto(String(reader.result)); };
+        reader.onerror = function () { toast('이미지를 불러오지 못했습니다. 다른 파일로 시도해 주세요.'); };
+        reader.readAsDataURL(file);
+      });
+
+      photoClear.addEventListener('click', function () { setPhoto(null); });
+    }
+
+    /* --- STEP 01: 얼굴 맞추기 --------------------------------------
+       편집 화면에는 업로드 사진과 고정된 원 하나뿐이다. 웨딩 템플릿은
+       보여 주지 않는다 — 사용자는 '얼굴을 원에 넣는 일'만 하면 된다.
+       그 결과(원본 사진의 어느 원을 잘랐는가)를 facefit.js 가 템플릿별
+       구멍 좌표에 맞춰 자동 배치한다. */
+
+    var fitBlock = $('#fit-block');
+    var fitCrop = $('#fit-crop');
+    var fitScale = $('#fit-scale');
+    var fitReset = $('#fit-reset');
+    var cropper = null;
+
+    /* 조작할 때마다 '잘라낸 원'만 갱신해 둔다. 어떤 템플릿에 끼워질지는
+       결과 화면에서 정해지므로 여기서는 합성하지 않는다. */
+    function updateCrop() {
+      if (cropper) state.crop = cropper.crop();
+    }
+
+    if (fitCrop && window.FaceFit) {
+      cropper = window.FaceFit.createCropper(fitCrop, updateCrop);
+    }
+
+    /* 역할에 쓸 템플릿이 있고 사진도 올렸을 때만 편집 영역을 연다.
+       어떤 템플릿이 걸릴지는 결과 화면에서 정해진다. */
+    function syncFitUI() {
+      var hasTpl = !!(window.FaceFit && window.FaceFit.listFor(state.role).length);
+      var on = !!(hasTpl && state.photo && cropper);
+
+      if (fitBlock) fitBlock.hidden = !on;
+      if (!on) { state.crop = null; return; }
+
+      if (fitScale) fitScale.value = 100;
+      cropper.load(state.photo).then(updateCrop);
+    }
+
+    if (fitScale) {
+      fitScale.addEventListener('input', function () {
+        if (cropper) cropper.zoom(Number(fitScale.value));
+      });
+    }
+
+    if (fitReset) {
+      fitReset.addEventListener('click', function () {
+        if (!cropper) return;
+        fitScale.value = 100;
+        cropper.reset();
+      });
+    }
+
+    // 역할 라디오는 제출 전에도 바뀌므로 바로 반응해야 한다
+    $$('input[name="role"]').forEach(function (r) {
+      r.addEventListener('change', function () {
+        state.role = r.value;
+        syncFitUI();
+      });
+    });
+
+    syncFitUI();
 
     // --- STEP 02: 일시 · 장소 --------------------------------------
     var placeBox = $('#place-custom');
@@ -573,17 +576,15 @@
 
       // 내가 신랑이면 groom 자리에 내 이름, 아니면 최애가 groom.
       var iAmGroom = state.role === 'groom';
-      var set = PHOTO_SETS[state.role] || PHOTO_SETS.bride;
 
+      /* DB 에는 텍스트(이름·일시·장소·문구)만 저장한다.
+         사용자가 고른 이미지는 어떤 형태로도 서버에 보내지 않는다. */
       var row = {
         groom: iAmGroom ? state.me : state.fav,
         bride: iAmGroom ? state.fav : state.me,
         when_label: state.when,
         place_label: state.where,
-        message_label: state.message,
-        photo_key: set[Math.floor(Math.random() * set.length)],
-        // 최애가 목록에 있으면 전용 사진 키. 없으면 null → 기존 로직 유지.
-        character_key: characterKeyFor(state.fav)
+        message_label: state.message
       };
 
       var notice = $('#notice-03');
@@ -594,11 +595,7 @@
         .then(function (res) {
           if (res.error) throw res.error;
           setText(notice, '');
-          // 캐릭터 사진을 먼저 받아둔 뒤 그려야 첫 렌더부터 전용 사진이 보인다.
-          return loadCharacterPhoto(res.data.character_key).then(function () {
-            setText(notice, '');
-            showResult(res.data, res.data.id);
-          });
+          showResult(res.data);
         })
         .catch(function (err) {
           setText(notice, '만들기에 실패했습니다. 잠시 후 다시 시도해 주세요.');
@@ -608,51 +605,37 @@
     });
 
     // --- STEP 04: 완성된 청첩장 -----------------------------------
-    var shareUrl = '';
+    /* 링크 공유는 제공하지 않는다. 완성 화면에서 할 수 있는 일은
+       '이미지 저장' 하나뿐이다. */
+    /* 카드에 넣을 대표 사진 한 장을 만든다.
+       역할에 템플릿이 있으면 그중 하나를 '이 자리에서' 무작위로 뽑아
+       얼굴을 끼운다 — 청첩장을 만들 때마다 다른 사진이 걸린다.
+       템플릿이 없으면(신랑) 업로드 사진을 그대로 쓴다.
+       어느 쪽이든 DB 가 아니라 이 기기의 메모리에서만 나온다. */
+    function buildCardPhoto() {
+      var list = window.FaceFit ? window.FaceFit.listFor(state.role) : [];
 
-    function showResult(row, id) {
-      var card = mountCard($('#invite-mount'), {
-        reactions: false, photoKey: row.photo_key, charKey: row.character_key
-      });
-      fillCard(card, row);
-      wireSave(card, $('#btn-save'), $('#notice-04'));
-
-      if (id) {
-        shareUrl = absUrl('invite.html', id);
-        $('#share-block').hidden = false;
-        setText($('#url-invite'), shareUrl);
-        setText($('#url-result'), absUrl('result.html', id));
-        markLocalMode($('#step-04'), LOCAL_MSG.share);
+      if (list.length && state.photo && state.crop) {
+        state.template = list[Math.floor(Math.random() * list.length)];
+        return window.FaceFit
+          .toDataURL(state.template, state.photo, state.crop)
+          .catch(function () { return state.photo; });   // 실패하면 원본으로
       }
-
-      goto('step-04');
+      return Promise.resolve(state.photo);
     }
 
-    // 공유: 네이티브 공유 시트가 있으면 그쪽, 없으면 링크 복사
-    $('#btn-share').addEventListener('click', function () {
-      if (!shareUrl) return;
+    function showResult(row) {
+      goto('step-04');
 
-      if (navigator.share) {
-        navigator.share({ title: '청첩장', url: shareUrl })
-          .catch(function () { /* 사용자가 취소한 경우 — 조용히 넘어간다 */ });
-        return;
-      }
-
-      copyText(shareUrl).then(function (ok) {
-        toast(ok
-          ? '링크를 복사했습니다. 하객에게 보내주세요.'
-          : '복사에 실패했습니다. 링크를 길게 눌러 복사해 주세요.');
-      });
-    });
-
-    $$('[data-copy]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var target = $('#' + btn.getAttribute('data-copy'));
-        copyText(target.textContent).then(function (ok) {
-          toast(ok ? '집계 링크를 복사했습니다.' : '복사에 실패했습니다.');
+      buildCardPhoto().then(function (photo) {
+        var card = mountCard($('#invite-mount'), {
+          reactions: false, photo: photo
         });
+        fillCard(card, row);
+        wireSave(card, $('#btn-save'), $('#notice-04'));
       });
-    });
+    }
+
   }
 
   /* =================================================================
@@ -677,11 +660,9 @@
     client.from('invitations').select('*').eq('id', id).single()
       .then(function (res) {
         if (res.error || !res.data) throw (res.error || new Error('not found'));
-        return loadCharacterPhoto(res.data.character_key).then(function () {
-          stateEl.hidden = true;
-          body.hidden = false;
-          renderInvite(res.data, id, client);
-        });
+        stateEl.hidden = true;
+        body.hidden = false;
+        renderInvite(res.data, id, client);
       })
       .catch(function (err) {
         setText(stateEl, '청첩장을 찾지 못했습니다. 링크가 만료되었거나 잘못된 주소입니다.');
@@ -690,9 +671,9 @@
   }
 
   function renderInvite(row, id, client) {
-    var card = mountCard($('#invite-mount'), {
-      reactions: true, photoKey: row.photo_key, charKey: row.character_key
-    });
+    /* 만든 사람이 고른 이미지는 그 기기 밖으로 나가지 않으므로
+       하객 화면의 사진 자리는 기본 배경(웨딩홀)으로 보인다. */
+    var card = mountCard($('#invite-mount'), { reactions: true });
     fillCard(card, row);
     wireSave(card, $('#btn-save'), $('#notice-save'));
     wireReactions(card, id, client);

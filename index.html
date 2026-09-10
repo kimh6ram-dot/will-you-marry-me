@@ -45,7 +45,7 @@
       <p class="head__step">FAVORITE WEDDING INVITATION</p>
       <h1 class="head__title head__title--hero">최애와 결혼합니다</h1>
       <span class="divider" aria-hidden="true"></span>
-      <p class="head__lead">이름만 넣으면,<br>그 이와 나의 청첩장이 완성됩니다.</p>
+      <p class="head__lead">이름과 사진만 넣으면,<br>그 이와 나의 청첩장이 완성됩니다.</p>
     </header>
 
     <div class="actions">
@@ -109,7 +109,6 @@
         <label class="field__label" for="input-groom">최애</label>
         <input class="field__input" id="input-groom" type="text" inputmode="text"
                placeholder="최애 이름" maxlength="16" autocomplete="off" spellcheck="false">
-        <p class="field__hint">※ 메이저캐에 한해 실사 이미지가 제공됩니다</p>
       </div>
 
       <div class="field">
@@ -117,6 +116,39 @@
         <input class="field__input" id="input-bride" type="text" inputmode="text"
                placeholder="내 이름" maxlength="16" autocomplete="off" spellcheck="false">
         <p class="field__hint">본명 또는 별명</p>
+      </div>
+
+      <!-- 사진(선택) — 파일은 기기 내 브라우저에서만 처리된다(서버 전송 없음) -->
+      <div class="field field--photo">
+        <span class="field__label">사진 (선택)</span>
+        <div class="photoadd">
+          <span class="photoadd__thumb" id="photo-thumb" hidden aria-hidden="true"></span>
+          <button class="btn btn--ghost photoadd__btn" type="button" id="btn-photo">이미지 추가</button>
+          <button class="photoadd__clear" type="button" id="btn-photo-clear" hidden>삭제</button>
+        </div>
+        <input id="input-photo" type="file" accept="image/*" hidden>
+        <p class="field__hint">
+          업로드한 이미지는 기기 내 브라우저에서만 처리되며 서버에 저장되지 않습니다.<br>
+          이미지 이용 권한은 이용자 본인이 확인해 주세요.
+        </p>
+      </div>
+
+      <!-- 사진을 넣었을 때만 펼쳐진다. 드래그 이동 + 슬라이더 확대. -->
+      <div class="field field--fit" id="fit-block" hidden>
+        <span class="field__label">얼굴 맞추기</span>
+        <p class="field__desc">원 안에 얼굴이 들어오도록 사진을 움직여 주세요.</p>
+
+        <!-- 편집 대상은 업로드 사진 하나뿐이다. 웨딩 템플릿은 여기 없다. -->
+        <canvas class="cropper" id="fit-crop" width="680" height="680"
+                aria-label="얼굴 맞추기 편집 영역"></canvas>
+
+        <div class="fitctl">
+          <span class="fitctl__cap">크기</span>
+          <input class="fitctl__range" id="fit-scale" type="range"
+                 min="100" max="300" value="100" step="1" aria-label="사진 확대">
+          <button class="fitctl__reset" type="button" id="fit-reset">초기화</button>
+        </div>
+        <p class="field__hint">사진을 드래그해 위치를 맞추고, 슬라이더로 크기를 조절해 주세요.</p>
       </div>
 
       <p class="notice" id="notice-01" role="status"></p>
@@ -253,38 +285,19 @@
     <div id="invite-mount"></div>
 
     <div class="actions">
-      <button class="btn btn--primary" type="button" id="btn-share">청첩장 공유하기</button>
-      <button class="btn btn--ghost" type="button" id="btn-save">이미지 저장</button>
+      <button class="btn btn--primary" type="button" id="btn-save">이미지 저장</button>
       <button class="btn btn--ghost" type="button" data-goto="step-intro">처음부터 다시 만들기</button>
     </div>
 
     <p class="notice" id="notice-04" role="status"></p>
 
-    <!-- 링크 영역은 기본으로 접어둔다. 펼쳐두면 결과 화면이 너무 길어진다. -->
-    <details class="linkmgr" id="share-block" hidden>
-      <summary class="linkmgr__sum">공유 링크 관리</summary>
-
-      <div class="linkmgr__body">
-        <p class="share__label">하객용 공유 링크</p>
-        <p class="share__desc">링크를 받은 사람이 청첩장을 보고 반응을 남깁니다.</p>
-        <p class="share__url" id="url-invite"></p>
-        <button class="btn btn--ghost" type="button" data-copy="url-invite">복사</button>
-
-        <p class="share__label linkmgr__gap">내 청첩장 관리 링크</p>
-        <p class="share__desc">
-          하객 반응이 몇 개 모였는지 확인하는 주소입니다.
-          <strong>다시 발급되지 않으니 따로 저장해 두세요.</strong>
-        </p>
-        <p class="share__url" id="url-result"></p>
-        <button class="btn btn--ghost" type="button" data-copy="url-result">복사</button>
-      </div>
-    </details>
-
-    <section class="gallery" aria-label="사례 사진">
-      <h2 class="gallery__title">이미 앞서간 사람들</h2>
-      <p class="gallery__lead">선배님들의 결혼식입니다.</p>
-      <div class="gallery__scroll" id="gallery-04"></div>
-    </section>
+    <!-- 업로드 안내는 결과 화면에서만 띄운다. 앞 단계에서는 아직
+         보여 줄 결과가 없어 경고만 앞서 보인다. -->
+    <footer class="foot">
+      <p class="foot__line">업로드한 이미지는 이용자의 기기 내 브라우저에서만<br>처리되며 서버에 저장되지 않습니다.</p>
+      <p class="foot__line">또한 이용자는 업로드한 이미지의 이용 권한을 직접 확인해야 하며,<br>타인의 저작권·초상권 등 권리를 침해하는 이미지를 사용해서는 안 됩니다.</p>
+      <p class="foot__line foot__line--mail">권리 침해 관련 문의: <a class="foot__mail" href="mailto:kimh6ram@gmail.com">kimh6ram@gmail.com</a></p>
+    </footer>
 
   </section>
 
@@ -297,7 +310,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
-<script src="assets/hero-photos.js" defer></script>
+<script src="assets/templates.js" defer></script>
+<script src="facefit.js" defer></script>
 <script src="config.js" defer></script>
 <script src="app.js" defer></script>
 <script src="decor.js" defer></script>

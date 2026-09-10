@@ -23,8 +23,13 @@
   --warn:#B4544C;        /* 입력 오류 안내에만 사용 */
 
   /* 유일하게 남는 장식 — 4갈래 작은 반짝이. 꽃/잎은 전부 걷어냈다.
-     인라인 <svg> 는 html2canvas 캡처에서 유실되므로 data URI 로 쓴다. */
-  --svg-sparkle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12z' fill='%23EADCC7'/%3E%3C/svg%3E");
+     인라인 <svg> 는 html2canvas 캡처에서 유실되므로 data URI 로 쓴다.
+     width/height 를 반드시 적는다 — viewBox 만 있으면 html2canvas 가
+     크기를 0 으로 잡아 저장본에서만 조용히 사라진다. */
+  --svg-sparkle:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='96' height='96'%3E%3Cpath d='M12 0c.6 6.4 5 10.8 12 12-7 1.2-11.4 5.6-12 12-.6-6.4-5-10.8-12-12 7-1.2 11.4-5.6 12-12z' fill='%23EADCC7'/%3E%3C/svg%3E");
+
+  /* 두 사람 이름 사이 하트. 팔레트를 지키려 핑크가 아닌 샴페인 베이지. */
+  --svg-heart:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='96' height='96'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z' fill='%23C4A57F'/%3E%3C/svg%3E");
 
   /* 웨딩홀 사진 — 사이트 분위기를 담당하는 유일한 비주얼.
      GitHub Pages 배포를 위해 파일명을 ASCII 로 맞췄다(한글 파일명은
@@ -88,12 +93,31 @@ body{
   position:relative; z-index:1;
   width:100%; max-width:var(--w);
   margin:0 auto;
-  padding:20px 24px calc(40px + env(safe-area-inset-bottom));
+  padding:20px 24px calc(14px + env(safe-area-inset-bottom));
 }
 
-/* --- 단계 전환 ---------------------------------------------------- */
+/* --- 단계 전환 ----------------------------------------------------
+   화면을 넘길 때 제목과 버튼이 튀지 않게 두 가지를 고정한다.
+     1) 헤더는 언제나 화면 맨 위에서 시작한다(세로 가운데 정렬 금지).
+     2) 액션 버튼은 margin-top:auto 로 항상 화면 아래쪽에 붙인다.
+        각 단계의 선택지 개수가 달라도 버튼 위치는 그대로다.
+   메인 화면(.step--intro)만 예외로 세로 가운데에 둔다 — 표지이므로. */
 .step{display:none}
-.step.is-active{display:block}
+.step.is-active{
+  display:flex; flex-direction:column;
+  /* .shell 상하 여백(20 + 14)만큼 뺀다. 이 값과 여백의 합이 한 화면이
+     되어야 버튼이 항상 같은 자리에 앉는다. */
+  min-height:calc(100svh - 36px);
+}
+
+/* 폼이 중간 높이를 다 차지해야 그 안의 버튼이 아래로 내려간다 */
+.step.is-active > form{
+  display:flex; flex-direction:column;
+  flex:1;
+}
+
+/* 버튼 줄을 아래로 밀어붙인다. 위 여백은 최소한 남긴다. */
+.step .actions{margin-top:auto; padding-top:28px}
 
 /* ===================================================================
    화면 머리 — 4단계 공통
@@ -135,10 +159,11 @@ body{
    가운데(살짝 위)에 앉힌다. .step{display:none} 을 이기지 않도록
    .is-active 와 함께 건다. */
 .step--intro.is-active{
-  display:flex; flex-direction:column; justify-content:center;
-  min-height:calc(100svh - 62px);
+  justify-content:center;
   padding-bottom:6vh;
 }
+/* 표지 화면에서는 버튼이 설명 바로 아래에 붙어야 한 덩어리로 읽힌다 */
+.step--intro .actions{margin-top:40px; padding-top:0}
 
 .head--intro{
   position:relative;
@@ -159,7 +184,7 @@ body{
   font-size:10.5px; letter-spacing:.2em;
   text-indent:.2em;              /* 자간 때문에 왼쪽으로 밀려 보이는 걸 보정 */
   color:#B0997C;
-  margin-bottom:12px;
+  margin-bottom:18px;
 }
 
 /* 화면에서 가장 강한 요소. 한 줄을 유지한 채 크기만 끌어올린다. */
@@ -173,7 +198,7 @@ body{
    선을 좌우로 흘린다. */
 .head--intro .divider{
   width:112px; height:10px;
-  margin:14px auto 0;
+  margin:22px auto 0;
   background:
     var(--svg-sparkle) no-repeat center / 9px 9px,
     linear-gradient(90deg, rgba(217,193,162,0) 0%, #DCD3C6 100%)
@@ -183,13 +208,13 @@ body{
 }
 
 .head--intro .head__lead{
-  font-size:15.5px; line-height:1.6;
+  font-size:15.5px; line-height:1.7;
   color:#6E6862;                 /* --sub 보다 진하게 — 배경 위 가독성 */
-  margin-top:14px;
+  margin-top:22px;
 }
 
 /* CTA — 제목 다음으로 강한 요소. 설명 바로 아래에서 이어진다. */
-.step--intro .actions{margin-top:26px}
+.step--intro .actions{margin-top:40px}
 /* .btn 기본값·좁은화면 미디어쿼리보다 뒤에 오도록 선택자를 한 겹 얹는다 */
 .step--intro .btn--hero{
   max-width:340px; margin:0 auto;
@@ -211,15 +236,8 @@ body{
 .gallery--showcase .shot{width:auto}
 .gallery--showcase .shot__cap{font-size:11.5px; margin-top:7px}
 
-/* 통과 화면이라 버튼을 사진에서 조금 떨어뜨린다 */
-.step--showcase .actions{margin-top:28px}
-
-/* 메인과 마찬가지로 내용이 짧다. 위로 몰리지 않게 세로 가운데에 앉힌다. */
-.step--showcase.is-active{
-  display:flex; flex-direction:column; justify-content:center;
-  min-height:calc(100svh - 62px);
-  padding-bottom:6vh;
-}
+/* 예시 화면도 입력 단계와 같은 골격을 쓴다 — 헤더는 위, 버튼은 아래.
+   이 화면만 가운데 정렬이면 다음 단계로 넘어갈 때 제목이 크게 뛴다. */
 
 /* ===================================================================
    입력
@@ -249,6 +267,85 @@ body{
   font-size:12px; font-weight:400; color:var(--sub);
   margin-top:5px;
 }
+
+/* --- 사진 추가 (STEP 01) --------------------------------------------
+   파일은 기기 내 브라우저에서만 처리된다(서버 전송 없음).
+   버튼 + (선택 후) 미리보기 썸네일 + 삭제. 기존 입력 폼 결을 따른다. */
+.field--photo .field__hint{line-height:1.65}
+
+.photoadd{display:flex; align-items:stretch; gap:8px}
+
+.photoadd__btn{
+  flex:1;
+  min-height:52px;
+  font-size:15px; font-weight:600;
+}
+
+.photoadd__thumb{
+  flex:0 0 auto;
+  width:52px; height:52px;
+  border:1px solid var(--line); border-radius:8px;
+  background:#EFECE7 center/cover no-repeat;
+}
+
+.photoadd__clear{
+  flex:0 0 auto;
+  min-height:52px; padding:0 14px;
+  background:var(--card);
+  border:1px solid var(--line-strong); border-radius:8px;
+  font-family:var(--sans); font-size:13px; font-weight:500; color:var(--sub);
+  cursor:pointer;
+  transition:border-color .16s ease;
+}
+.photoadd__clear:hover{border-color:var(--sub)}
+
+/* --- 얼굴 맞추기 (STEP 01) ------------------------------------------
+   신부를 골랐을 때만 펼쳐진다. 무작위로 정해진 템플릿의 뚫린 얼굴
+   자리에 업로드 사진이 들어가고, 미리보기를 끌어서 위치를,
+   슬라이더로 크기를 맞춘다. */
+/* 편집 영역 — 업로드 사진 + 고정된 원 가이드. 정사각형이라
+   '사진을 원에 넣는다'는 목적이 한눈에 읽힌다. */
+.field__desc{
+  font-size:12.5px; font-weight:400; line-height:1.6;
+  color:var(--sub);
+  margin:-2px 0 10px;
+}
+
+.cropper{
+  display:block; width:100%; height:auto;
+  aspect-ratio:1 / 1;
+  border:1px solid var(--line); border-radius:8px;
+  background:#EFECE7;
+  cursor:grab;
+  touch-action:none;
+}
+.cropper:active{cursor:grabbing}
+
+
+.fitctl{
+  display:flex; align-items:center; gap:10px;
+  margin-top:10px;
+}
+.fitctl__cap{
+  flex:0 0 auto;
+  font-size:12.5px; font-weight:600; color:var(--ink);
+}
+.fitctl__range{
+  flex:1;
+  height:28px;
+  accent-color:var(--btn);   /* 브라우저 기본 슬라이더를 그대로 쓰되 색만 맞춘다 */
+  cursor:pointer;
+}
+.fitctl__reset{
+  flex:0 0 auto;
+  min-height:34px; padding:0 12px;
+  background:var(--card);
+  border:1px solid var(--line-strong); border-radius:8px;
+  font-family:var(--sans); font-size:12.5px; font-weight:500; color:var(--sub);
+  cursor:pointer;
+  transition:border-color .16s ease;
+}
+.fitctl__reset:hover{border-color:var(--sub)}
 
 /* ===================================================================
    선택 카드 — STEP 02 · 03 공통
@@ -539,7 +636,7 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
 .inv > *:nth-child(n+7){animation-delay:.88s}
 @keyframes riseIn{from{opacity:0; transform:translateY(9px)} to{opacity:1; transform:none}}
 
-/* 캐릭터 사진 — 정지 이미지의 딱딱함만 덜어내는 정도 */
+/* 대표 사진 — 정지 이미지의 딱딱함만 덜어내는 정도 */
 .inv__photo{animation:breathe 7s ease-in-out infinite}
 @keyframes breathe{
   0%,100%{transform:scale(1)}
@@ -595,25 +692,34 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
 .inv > *{position:relative; z-index:1}
 
 /* --- 1. 이름 (가장 강한 위계) -------------------------------------- */
-.inv__eyebrow{
-  font-size:9.5px; font-weight:700; letter-spacing:.22em;
-  color:#BFA582;
-  margin-bottom:8px;
+/* 인사말 — 카드를 열자마자 '청첩장'이라고 말해 주는 한 줄 */
+.inv__greet{
+  font-size:14px; font-weight:600; letter-spacing:-.01em;
+  color:#B18E5E;
+  margin-bottom:12px;
 }
 
-.inv__pair{margin:0}
+/* 두 사람 이름을 가로 한 줄에. 이름이 아주 길면 자연스럽게 접힌다. */
+.inv__pair{
+  display:flex; align-items:center; justify-content:center;
+  flex-wrap:wrap;
+  gap:0 12px;
+  margin:0;
+}
+
+/* 가운데 하트 — 두 이름을 잇는 기호. 글꼴 하트(♥)는 기기마다 모양이
+   달라서 SVG 로 그린다(캡처에도 동일하게 남는다). */
+.inv__heart{
+  flex:0 0 auto;
+  width:17px; height:17px;
+  background:var(--svg-heart) no-repeat center/contain;
+}
 .inv__name{
-  display:block;
-  font-size:clamp(26px, 7.4vw, 30px); font-weight:800;
+  display:inline;
+  font-size:clamp(21px, 5.9vw, 26px); font-weight:800;
   line-height:1.15; letter-spacing:-.03em;
   color:var(--ink);
   word-break:keep-all;
-}
-.inv__amp{
-  display:block;
-  font-size:14px; font-weight:500; line-height:1;
-  color:#C4A57F;
-  margin:4px 0;
 }
 
 /* --- 2. 이름 아래 작은 장식선 — 가는 선 하나 + 반짝이 하나 -------- */
@@ -639,14 +745,14 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
   box-shadow:0 1px 6px rgba(31,31,31,.04);
 }
 /* object-fit 은 html2canvas 가 못 그린다 → 배경 이미지 + cover.
-   캐릭터 매칭이 없을 때의 기본 사진이 웨딩홀 사진이다. */
+   사용자가 이미지를 올리면 app.js 가 인라인 배경으로 덮어쓰고,
+   올리지 않으면 이 기본값(웨딩홀 사진)이 빈 프레임을 채운다. */
 .inv__photo{
   aspect-ratio:16 / 9;
   border-radius:6px;
   background:#F1EFEA center 42%/cover no-repeat;
   background-image:var(--hall);
 }
-.inv__photo.is-missing{display:none}
 
 /* --- 4. 일시 · 장소 — 한 블록 2열 ---------------------------------- */
 .inv__info{
@@ -660,8 +766,8 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
 .inv__col + .inv__col{border-left:1px solid #F2EEE8}
 
 .inv__lbl{
-  font-size:8.5px; font-weight:700; letter-spacing:.15em;
-  color:#BFA582;
+  font-size:10px; font-weight:600; letter-spacing:.02em;
+  color:#B18E5E;
 }
 .inv__val{
   font-size:16px; font-weight:700; line-height:1.35; letter-spacing:-.02em;
@@ -674,12 +780,17 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
 .inv__msg{margin:18px 0}
 .inv__quote{
   max-width:90%;
-  margin:8px auto 0;
+  margin:0 auto;
   font-size:17px; font-weight:700; line-height:1.55; letter-spacing:-.02em;
   color:var(--ink);
   word-break:keep-all;
 }
 .inv__q{color:#DCC7AB}
+
+/* 맺음말 — 모시는 글과 '같은 종류의 글'로 읽히게 한다.
+   크기·굵기·색을 위 문장과 똑같이 두고 간격만 준다. 크기를 따로
+   지정하면 좁은 화면 미디어쿼리에 덮여 둘이 어긋난다. */
+.inv__quote--sub{margin-top:10px}
 
 /* --- 6. 하단 마무리 — 반짝이 하나로만 끝낸다 ---------------------- */
 .inv__divider{
@@ -695,15 +806,10 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
 }
 
 /* --- 7. 하단 보조 정보 --------------------------------------------- */
-.inv__closing{
-  font-size:10px; font-weight:400; line-height:1.6;
-  color:#96908A;
-  margin-top:12px;
-}
 .inv__note{
   font-size:9.5px; font-weight:400; line-height:1.6;
   color:#A49E97;
-  margin-top:3px;
+  margin-top:12px;
 }
 .inv__mark{
   font-size:9px; font-weight:500; letter-spacing:.1em;
@@ -749,63 +855,8 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
 }
 
 /* ===================================================================
-   공유 링크 · 집계
+   집계 (result.html)
    =================================================================== */
-.share{
-  margin-top:26px; padding:18px 16px;
-  background:var(--card);
-  border:1px solid var(--line); border-radius:var(--r);
-}
-.share__label{font-size:12.5px; font-weight:600; color:var(--ink); margin-bottom:4px}
-.share__desc{font-size:11.5px; font-weight:400; line-height:1.65; color:var(--sub)}
-.share__desc strong{font-weight:600; color:var(--ink)}
-
-.share__url{
-  border:1px solid var(--line); border-radius:8px;
-  background:var(--bg);
-  padding:12px 12px;
-  margin:10px 0;
-  font-size:12px; font-weight:400; line-height:1.6; color:var(--sub);
-  text-align:center;
-  word-break:break-all;
-  user-select:all;          /* 탭 한 번으로 전체 선택 */
-}
-
-.share .btn{min-height:48px; font-size:14px}
-
-/* --- 공유 링크 관리 (접이식) --------------------------------------- */
-.linkmgr{
-  margin-top:10px;
-  background:var(--card);
-  border:1px solid var(--line); border-radius:var(--r);
-  overflow:hidden;
-}
-
-.linkmgr__sum{
-  display:flex; align-items:center; justify-content:space-between;
-  min-height:52px; padding:0 16px;
-  font-size:14px; font-weight:600; color:var(--ink);
-  cursor:pointer;
-  list-style:none;                 /* 기본 삼각형 제거 */
-}
-.linkmgr__sum::-webkit-details-marker{display:none}
-
-/* 직접 그린 화살표 — 펼치면 뒤집힌다 */
-.linkmgr__sum::after{
-  content:"";
-  width:8px; height:8px;
-  border-right:1.5px solid var(--sub);
-  border-bottom:1.5px solid var(--sub);
-  transform:translateY(-2px) rotate(45deg);
-  transition:transform .16s ease;
-}
-.linkmgr[open] .linkmgr__sum::after{transform:translateY(2px) rotate(-135deg)}
-
-.linkmgr__body{padding:2px 16px 16px; border-top:1px solid var(--line)}
-.linkmgr__body .share__label{margin-top:14px}
-.linkmgr__gap{margin-top:22px !important}
-
-/* --- 집계표 (result.html) ------------------------------------------ */
 .card{
   background:var(--card);
   border:1px solid var(--line); border-radius:var(--r);
@@ -839,6 +890,8 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
   font-size:12px; line-height:1.6; color:var(--sub);
   text-align:center; margin:8px 0 0;
 }
+/* 안내 문구가 없을 때는 자리를 비운다 — 아래 요소가 붕 뜨지 않게 */
+.notice:empty{display:none}
 
 .state{
   font-size:14px; font-weight:500; line-height:1.8; color:var(--sub);
@@ -860,6 +913,24 @@ body:has(#step-03.is-active) .stage__hall{opacity:.42}
   text-align:center;
   margin-top:12px;
 }
+
+/* --- 하단 권리 안내 — 경고문이 아니라 작은 보조 텍스트 결로 -------
+   결과 화면(STEP 04) 안에 들어 있다. .shell 안쪽이라 좌우 여백은
+   이미 잡혀 있고, 버튼 밑에 붙을 만큼만 위 간격을 준다. */
+.foot{
+  position:relative; z-index:1;
+  margin-top:14px;
+}
+.foot__line{
+  font-size:10.5px; font-weight:400; line-height:1.65;
+  color:#ABA59D;
+  text-align:center;
+  word-break:keep-all;
+}
+/* 문단 사이는 한 줄 띄운 만큼, 문단 안 줄바꿈은 붙여서 */
+.foot__line + .foot__line{margin-top:12px}
+.foot__line--mail{margin-top:12px}
+.foot__mail{color:inherit; text-decoration:underline}
 
 .toast{
   position:fixed; z-index:20;
